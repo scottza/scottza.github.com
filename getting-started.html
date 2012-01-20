@@ -1,0 +1,234 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Getting Started &mdash; SciPy</title>
+    
+    <link rel="stylesheet" href="_static/scipy.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="top" title="SciPy" href="index.html" /> 
+  </head>
+  <body>
+<div class="top-logo-header">
+<a href="index.html"><img src="_static/logo.gif" border="0" alt="SciPy Website"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li><a href="content.html">SciPy</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  
+<h3>Site Navigation</h3>
+
+<ul>
+<li><a href="http://scipynews.blogspot.com">News</a></li>
+<li><a href="http://planet.scipy.org">Blogs</a></li>
+<li><a href="http://conference.scipy.org">Conference</a></li>
+<li><a href="download.html">Download</a></li>
+<li><a href="http://www.scipy.org/Cookbook">Cookbook</a></li>
+<li><a href="http://docs.scipy.org">Documentation</a></li>
+<li><a href="mailing-lists.html">Mailing Lists</a></li>
+<li><a href="http://www.scipy.org/Topical_Software">Topical Software</a></li>
+<li><a href="dev-zone.html">Developer Zone</a></li>
+</ul>
+
+
+
+
+  <h3><a href="content.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Getting Started</a><ul>
+<li><a class="reference internal" href="#what-are-numpy-scipy-and-matplotlib">What are NumPy, SciPy and matplotlib?</a></li>
+<li><a class="reference internal" href="#id1">What are NumPy, SciPy, and matplotlib?</a></li>
+<li><a class="reference internal" href="#how-to-work-with-scipy">How to work with SciPy</a></li>
+<li><a class="reference internal" href="#learning-to-work-with-scipy">Learning to work with SciPy</a><ul>
+<li><a class="reference internal" href="#an-example-session">An example session</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+<div id="searchbox" style="display: none">
+    <h3>Search</h3>
+<form class="search" action="http://www.google.com/search" method="get">
+    <!-- we'll use google at least until we get everything in sphinx -->
+    <input type="text" name="q" size="18" />
+    <input type="submit" value="Go" />
+    <input type="hidden" name="as_sitesearch" value="scipy.org">
+  </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="getting-started">
+<h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<p>This page is intended to help the beginner get a handle on SciPy and be
+productive with it as fast as possible.</p>
+<div class="section" id="what-are-numpy-scipy-and-matplotlib">
+<h2>What are NumPy, SciPy and matplotlib?<a class="headerlink" href="#what-are-numpy-scipy-and-matplotlib" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><strong>Python</strong> is a general purpose programming language. It is interpreted and
+dynamically typed and is very suited for interactive work and quick
+prototyping, while being powerful enough to write large applications in.</li>
+<li><strong>NumPy</strong> is a Python extension module, written mostly in C, that defines
+the numerical array and matrix types and basic operations on them.</li>
+<li><strong>SciPy</strong> is another Python library that uses NumPy to do advanced math,
+signal processing, optimization, statistics and much more.</li>
+<li><strong>matplotlib</strong> is a Python library that facilitates publication-quality
+interactive plotting.</li>
+</ul>
+</div>
+<div class="section" id="id1">
+<h2>What are NumPy, SciPy, and matplotlib?<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>SciPy and friends can be used for a variety of tasks:</p>
+<ul>
+<li><p class="first">First of all, they are great for performing calculation relying heavily on
+mathematical and numerical operations. They can work natively with matrices
+and arrays, perform operations on them, find eigenvectors, compute integrals,
+solve differential equations.</p>
+</li>
+<li><p class="first">NumPy&#8217;s array class (which is used to implement the matrix class) is
+implemented with speed in mind, so accessing NumPy arrays is faster than
+accessing Python lists. Further, NumPy implements an <strong>array language,</strong> so
+that most loops are not needed. For example, Plain Python (and similarly
+for C, etc.):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">a</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10000000</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10000000</span><span class="p">)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)):</span>
+    <span class="n">c</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>This loop can take up to 10 seconds on a several GHz processor. With NumPy:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10000000</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10000000</span><span class="p">)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+</pre></div>
+</div>
+<p>Not only is this much more compact and readable, it is almost instant
+by comparison, and even the NumPy import is faster than the loop in plain
+Python. Why? Python is an interpreted language with dynamic typing. This
+means that on each loop iteration it needs to check the type of the operands
+a and b to select the right variant of the &#8216;+&#8217; operator for those types (in
+Python, &#8216;+&#8217; is used for many things, like concatenating strings, and lists
+can have elements of different types). The NumPy add function, which Python
+automatically selects when one of the operands of &#8216;+&#8217; is a NumPy array, does
+this check only once. It then executes the &#8220;real&#8221; addition loop in a compiled
+C function. This is very fast by comparison to the interpreted loop in plain
+Python.</p>
+<p>There is a sizeable collection of both generic and application-specific
+numerical code written in or using numpy and scipy. See the
+<a class="reference internal" href="topical-software.html"><em>Topical Software</em></a> index for a partial list. Python has many advanced
+modules to build interactive applications (for instance <a class="reference external" href="http://code.enthought.com/projects/traits/">Traits</a> or
+<a class="reference external" href="http://www.wxpython.org/">wxPython</a>). Using SciPy with these is the quickest way to build a
+fully-fledged scientific application.</p>
+</li>
+<li><p class="first">Using <a class="reference external" href="http://ipython.scipy.org/">IPython</a> makes interactive work easy. Data processing, exploration of
+numerical models, trying out operations on-the-fly allows to go quickly from
+an idea to a result (see the article on IPython).</p>
+</li>
+<li><p class="first">The <a class="reference external" href="http://matplotlib.sourceforge.net/">matplotlib</a> module produces high quality plots. With it you can turn your
+data or your models into figures for presentations or articles. No need to do
+the numerical work in one program, save the data, and plot it with another
+program.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="how-to-work-with-scipy">
+<h2>How to work with SciPy<a class="headerlink" href="#how-to-work-with-scipy" title="Permalink to this headline">¶</a></h2>
+<p>Python is a language, it comes with several user interfaces. There is no single
+program that you can start and that gives an integrated user experience.
+Instead of that there are dozens of way to work with Python.</p>
+<p>The most common is to use the advanced interactive Python shell <a class="reference external" href="http://ipython.scipy.org/">IPython</a> to
+enter commands and run scripts. Scripts can be written with any text editor,
+for instance <a class="reference external" href="http://www.gnu.org/software/emacs/">Emacs</a>, <a class="reference external" href="http://www.vim.org/">Vim</a> or even Notepad.</p>
+<p>Neither SciPy nor NumPy provide, by default, plotting functions. They are just
+numerical tools. The recommended plotting package is <a class="reference external" href="http://matplotlib.sourceforge.net/">matplotlib</a>.</p>
+</div>
+<div class="section" id="learning-to-work-with-scipy">
+<h2>Learning to work with SciPy<a class="headerlink" href="#learning-to-work-with-scipy" title="Permalink to this headline">¶</a></h2>
+<p>To learn more about the Python language, the <a class="reference external" href="http://docs.python.org/tutorial/">official Python tutorial</a> is
+an excellent way to become familiar with the Python syntax and objects. An
+alternative introduction can be found in the free online book <a class="reference external" href="http://diveintopython.org/">Dive Into
+Python</a> by Mark Pilgrim.</p>
+<div class="section" id="an-example-session">
+<h3>An example session<a class="headerlink" href="#an-example-session" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="go">Python 2.5.1 (r251:54863, May  2 2007, 16:27:44)</span>
+<span class="go">Type &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.</span>
+<span class="go">IPython 0.7.3 -- An enhanced Interactive Python.</span>
+<span class="go">?       -&gt; Introduction to IPython&#39;s features.</span>
+<span class="go">%magic  -&gt; Information about IPython&#39;s &#39;magic&#39; % functions.</span>
+<span class="go">help    -&gt; Python&#39;s own help system.</span>
+<span class="go">object? -&gt; Details about &#39;object&#39;. ?object also works, ?? prints more.</span>
+<span class="go">  Welcome to pylab, a matplotlib-based Python environment.</span>
+<span class="go">  For more information, type &#39;help(pylab)&#39;.</span>
+</pre></div>
+</div>
+<p>IPython offers a great many convenience features, such as tab-completion of
+python functions and a good help system.</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="o">%</span><span class="n">logstart</span>
+<span class="go">Activating auto-logging. Current session state plus future input saved.</span>
+<span class="go">Filename       : ipython_log.py</span>
+<span class="go">Mode           : rotate</span>
+<span class="go">Output logging : False</span>
+<span class="go">Raw input log  : False</span>
+<span class="go">Timestamping   : False</span>
+<span class="go">State          : active</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li><a href="content.html">SciPy</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2009 SciPy developers.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+    </div>
+  </body>
+</html>

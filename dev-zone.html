@@ -1,0 +1,244 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Developer Zone &mdash; SciPy</title>
+    
+    <link rel="stylesheet" href="_static/scipy.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="top" title="SciPy" href="index.html" />
+    <link rel="prev" title="NumPy and SciPy Project Mailing Lists" href="mailing-lists.html" /> 
+  </head>
+  <body>
+<div class="top-logo-header">
+<a href="index.html"><img src="_static/logo.gif" border="0" alt="SciPy Website"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="mailing-lists.html" title="NumPy and SciPy Project Mailing Lists"
+             accesskey="P">previous</a></li>
+        <li><a href="content.html">SciPy</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  
+<h3>Site Navigation</h3>
+
+<ul>
+<li><a href="http://scipynews.blogspot.com">News</a></li>
+<li><a href="http://planet.scipy.org">Blogs</a></li>
+<li><a href="http://conference.scipy.org">Conference</a></li>
+<li><a href="download.html">Download</a></li>
+<li><a href="http://www.scipy.org/Cookbook">Cookbook</a></li>
+<li><a href="http://docs.scipy.org">Documentation</a></li>
+<li><a href="mailing-lists.html">Mailing Lists</a></li>
+<li><a href="http://www.scipy.org/Topical_Software">Topical Software</a></li>
+<li><a href="#">Developer Zone</a></li>
+</ul>
+
+
+
+
+  <h3><a href="content.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Developer Zone</a><ul>
+<li><a class="reference internal" href="#we-need-your-help">We need your help!</a></li>
+<li><a class="reference internal" href="#steering-committee">Steering Committee</a></li>
+<li><a class="reference internal" href="#source-code">Source Code</a><ul>
+<li><a class="reference internal" href="#new-code">New Code</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#packaging">Packaging</a><ul>
+<li><a class="reference internal" href="#making-source-and-binary-releases">Making Source and Binary Releases</a></li>
+<li><a class="reference internal" href="#getting-releases-into-distribution">Getting Releases Into Distribution</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="mailing-lists.html"
+                        title="previous chapter">NumPy and SciPy Project Mailing Lists</a></p>
+<div id="searchbox" style="display: none">
+    <h3>Search</h3>
+<form class="search" action="http://www.google.com/search" method="get">
+    <!-- we'll use google at least until we get everything in sphinx -->
+    <input type="text" name="q" size="18" />
+    <input type="submit" value="Go" />
+    <input type="hidden" name="as_sitesearch" value="scipy.org">
+  </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="developer-zone">
+<h1>Developer Zone<a class="headerlink" href="#developer-zone" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="we-need-your-help">
+<h2>We need your help!<a class="headerlink" href="#we-need-your-help" title="Permalink to this headline">¶</a></h2>
+<p>This is a distributed, volunteer project with many contributors. The
+best way to join our effort is to start participating in one of the
+developer <a class="reference internal" href="mailing-lists.html"><em>mailing lists</em></a>.</p>
+</div>
+<div class="section" id="steering-committee">
+<h2>Steering Committee<a class="headerlink" href="#steering-committee" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Jarrod Millman</li>
+<li>Eric Jones</li>
+<li>Robert Kern</li>
+<li>Travis Oliphant</li>
+<li>Stefan van der Walt</li>
+</ul>
+<p>The purpose of this group is to ensure coherency in the SciPy library and
+advocate its progression. It organizes doc-days, bug-days, coding sprints, and
+assists with organizing the SciPy conference. It also serves to resolve
+questions that come up regarding the future of SciPy.</p>
+</div>
+<div class="section" id="source-code">
+<h2>Source Code<a class="headerlink" href="#source-code" title="Permalink to this headline">¶</a></h2>
+<p>Make contributions (e.g. code patches), feature requests and file bug reports
+by submitting a &#8220;ticket&#8221; on the Trac pages linked below.  Because of spam
+abuse, you must create an account on our Trac in order to submit a ticket,
+then click on the &#8220;New Ticket&#8221; tab that only appears when you have logged in.
+Please give as much information as you can in the ticket.  Also specify the
+component, the version you are referring to and the milestone.  Report bugs
+to the appropriate Trac instance (there is one for NumPy and a different one
+for SciPy).  There are read-only mailing lists for tracking the status of
+your bug ticket.</p>
+<p>Note that NumPy contains the most basic numerical functionality, and SciPy is
+layered on top of NumPy to provide a much wider range of capability. You need
+NumPy for SciPy to work.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="9%" />
+<col width="34%" />
+<col width="57%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td rowspan="3">NumPy</td>
+<td>Developer&#8217;s Wiki (Trac)</td>
+<td><a class="reference external" href="http://projects.scipy.org/numpy">http://projects.scipy.org/numpy</a></td>
+</tr>
+<tr class="row-even"><td>Subversion</td>
+<td><a class="reference external" href="http://svn.scipy.org/svn/numpy/trunk">http://svn.scipy.org/svn/numpy/trunk</a></td>
+</tr>
+<tr class="row-odd"><td>Timeline</td>
+<td><a class="reference external" href="http://projects.scipy.org/numpy/timeline">http://projects.scipy.org/numpy/timeline</a></td>
+</tr>
+<tr class="row-even"><td rowspan="3">NumPy</td>
+<td>Developer&#8217;s Wiki (Trac)</td>
+<td><a class="reference external" href="http://projects.scipy.org/scipy">http://projects.scipy.org/scipy</a></td>
+</tr>
+<tr class="row-odd"><td>Subversion</td>
+<td><a class="reference external" href="http://svn.scipy.org/svn/scipy/trunk">http://svn.scipy.org/svn/scipy/trunk</a></td>
+</tr>
+<tr class="row-even"><td>Timeline</td>
+<td><a class="reference external" href="http://projects.scipy.org/scipy/timeline">http://projects.scipy.org/scipy/timeline</a></td>
+</tr>
+</tbody>
+</table>
+<p>Interested people can get repository write access as well.  This usually
+requires a developer &#8220;vouching&#8221; for you, which happens more easily if you
+already made a number of patch contributions.</p>
+<p>See <a class="reference internal" href="#packaging"><em>Packaging</em></a>, below, for the process of building and making releases.</p>
+<p>Affiliated, non-field-specific projects:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://matplotlib.sourceforge.net/">matplotlib</a> &#8211; John D. Hunter</li>
+<li><a class="reference external" href="http://ipython.scipy.org/">IPython</a> &#8211; Fernando Perez</li>
+<li><a class="reference external" href="http://www.f2py.org/">f2py</a> &#8211; Pearu Peterson</li>
+</ul>
+<div class="section" id="new-code">
+<h3>New Code<a class="headerlink" href="#new-code" title="Permalink to this headline">¶</a></h3>
+<p>If you have some new code you&#8217;d like to see included in SciPy, the first
+thing to do is make a <strong>SciKit</strong>.</p>
+<p>A SciKit is a stand-alone package including your code (including complete
+reference and user documentation). SciKits are distributed at
+<a class="reference external" href="http://scikits.appspot.com/">http://scikits.appspot.com/</a>. This site is currently still in early construction
+phases, and will be moved (and linked) to the main page of this site when it is
+ready to accept new SciKits. Right now users and developers are encouraged to
+view the site and comment on <a class="reference external" href="mailto:scipy-dev&#37;&#52;&#48;scipy&#46;org">scipy-dev<span>&#64;</span>scipy<span>&#46;</span>org</a> to ensure it serves your
+needs.</p>
+<p>Once you get some use experience, the community may decide to include your
+SciKit in SciPy. These decisions are based on many factors, including maturity
+of the code API and the docs, ease of building it on all platforms, how many
+people use it, how well it is integrated into SciPy, etc.</p>
+<p>Because it must remain small and easy to build, new additions of entire
+packages to NumPy are extremely rare. Post on
+the <a class="reference external" href="mailto:numpy-discussion&#37;&#52;&#48;scipy&#46;org">numpy-discussion<span>&#64;</span>scipy<span>&#46;</span>org</a> mailing list if you think you have a compelling
+case.</p>
+</div>
+</div>
+<div class="section" id="packaging">
+<span id="id1"></span><h2>Packaging<a class="headerlink" href="#packaging" title="Permalink to this headline">¶</a></h2>
+<p>For the majority of users who do not want to build the code from source, binary
+installers that &#8220;just work&#8221; are the key to using SciPy. Producing these after
+the coding is finished is the Packaging Team&#8217;s job.</p>
+<div class="section" id="making-source-and-binary-releases">
+<h3>Making Source and Binary Releases<a class="headerlink" href="#making-source-and-binary-releases" title="Permalink to this headline">¶</a></h3>
+<p>A releaseable tarball gets made from the sources following a straightforward
+procedure (see <a class="reference external" href="http://projects.scipy.org/numpy/wiki/MakingReleases">http://projects.scipy.org/numpy/wiki/MakingReleases</a> ). To make
+an official release to the community, the release manager typically
+makes a series of test releases and announces them on the
+mailing lists. After getting feedback, the release manager makes a final release,
+posts it, and announces it on the mailing lists.</p>
+</div>
+<div class="section" id="getting-releases-into-distribution">
+<h3>Getting Releases Into Distribution<a class="headerlink" href="#getting-releases-into-distribution" title="Permalink to this headline">¶</a></h3>
+<p>Linux distributions and many others pick up our packages and deliver them to
+users as part of larger collections.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="mailing-lists.html" title="NumPy and SciPy Project Mailing Lists"
+             >previous</a></li>
+        <li><a href="content.html">SciPy</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2009 SciPy developers.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+    </div>
+  </body>
+</html>

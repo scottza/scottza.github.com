@@ -1,0 +1,766 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Building NumPy &amp; SciPy From Source on Linux &mdash; SciPy</title>
+    
+    <link rel="stylesheet" href="../_static/scipy.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="SciPy" href="../index.html" /> 
+  </head>
+  <body>
+<div class="top-logo-header">
+<a href="../index.html"><img src="../_static/logo.gif" border="0" alt="SciPy Website"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li><a href="../content.html">SciPy</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  
+<h3>Site Navigation</h3>
+
+<ul>
+<li><a href="http://scipynews.blogspot.com">News</a></li>
+<li><a href="http://planet.scipy.org">Blogs</a></li>
+<li><a href="http://conference.scipy.org">Conference</a></li>
+<li><a href="../download.html">Download</a></li>
+<li><a href="http://www.scipy.org/Cookbook">Cookbook</a></li>
+<li><a href="http://docs.scipy.org">Documentation</a></li>
+<li><a href="../mailing-lists.html">Mailing Lists</a></li>
+<li><a href="http://www.scipy.org/Topical_Software">Topical Software</a></li>
+<li><a href="../dev-zone.html">Developer Zone</a></li>
+</ul>
+
+
+
+
+  <h3><a href="../content.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Building NumPy &amp; SciPy From Source on Linux</a><ul>
+<li><a class="reference internal" href="#introduction-source-and-binaries">Introduction : source and binaries</a></li>
+<li><a class="reference internal" href="#fedora-core-8-opensuse-10-2-rhel-centos-5">Fedora Core 8, openSUSE 10.2, RHEL/Centos 5</a><ul>
+<li><a class="reference internal" href="#basic-install">Basic install</a></li>
+<li><a class="reference internal" href="#building-atlas">Building Atlas</a></li>
+<li><a class="reference internal" href="#building-atlas-by-hand">Building Atlas by Hand</a></li>
+<li><a class="reference internal" href="#building-atlas-with-atlas-xxx-src-rpm-from-ashigabou-repository">Building Atlas with atlas-XXX.src.rpm from Ashigabou Repository</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mandriva-2007-1">Mandriva 2007.1</a></li>
+<li><a class="reference internal" href="#gentoo">Gentoo</a></li>
+<li><a class="reference internal" href="#debian-ubuntu-andrew-straw-s-unofficial-repository">Debian / Ubuntu - Andrew Straw&#8217;s unofficial repository</a><ul>
+<li><a class="reference internal" href="#binary-packages-ubuntu-dapper-6-06-i386-and-amd64-architectures">Binary packages Ubuntu Dapper (6.06), (i386 and amd64 architectures)</a></li>
+<li><a class="reference internal" href="#source-packages-for-any-debian-based-distribution">Source packages for any Debian-based distribution</a></li>
+<li><a class="reference internal" href="#gpg-verification-using-andrew-straw-s-repository">GPG Verification using Andrew Straw&#8217;s repository</a></li>
+<li><a class="reference internal" href="#debian-sarge-notes">Debian sarge notes</a></li>
+<li><a class="reference internal" href="#ubuntu-notes">Ubuntu notes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#opensuse">openSUSE</a><ul>
+<li><a class="reference internal" href="#atlas">ATLAS</a></li>
+<li><a class="reference internal" href="#broken-blas">Broken BLAS</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#building-everything-from-source-with-gfortran-on-ubuntu">Building everything from source with gfortran on Ubuntu</a><ul>
+<li><a class="reference internal" href="#install-required-packages">Install required packages</a></li>
+<li><a class="reference internal" href="#build-lapack-3-1-1">Build lapack (3.1.1)</a></li>
+<li><a class="reference internal" href="#build-atlas-3-8-0">Build ATLAS (3.8.0)</a></li>
+<li><a class="reference internal" href="#build-umfpack-5-2-0">Build UMFPACK (5.2.0)</a></li>
+<li><a class="reference internal" href="#build-fftw-3-1-2">Build FFTW (3.1.2)</a></li>
+<li><a class="reference internal" href="#build-numpy-and-scipy">Build Numpy and Scipy</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#any-distribution-with-intel-c-compiler-and-mkl">Any distribution with Intel C compiler and MKL</a><ul>
+<li><a class="reference internal" href="#other-distributions">Other distributions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#any-linux-distro-self-contained-local-installation-with-sage">Any Linux distro: self-contained local installation with Sage</a></li>
+</ul>
+</li>
+</ul>
+
+<div id="searchbox" style="display: none">
+    <h3>Search</h3>
+<form class="search" action="http://www.google.com/search" method="get">
+    <!-- we'll use google at least until we get everything in sphinx -->
+    <input type="text" name="q" size="18" />
+    <input type="submit" value="Go" />
+    <input type="hidden" name="as_sitesearch" value="scipy.org">
+  </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="building-numpy-scipy-from-source-on-linux">
+<h1>Building NumPy &amp; SciPy From Source on Linux<a class="headerlink" href="#building-numpy-scipy-from-source-on-linux" title="Permalink to this headline">¶</a></h1>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><a class="reference internal" href="#introduction-source-and-binaries" id="id1">Introduction : source and binaries</a></li>
+<li><a class="reference internal" href="#fedora-core-8-opensuse-10-2-rhel-centos-5" id="id2">Fedora Core 8, openSUSE 10.2, RHEL/Centos 5</a><ul>
+<li><a class="reference internal" href="#basic-install" id="id3">Basic install</a></li>
+<li><a class="reference internal" href="#building-atlas" id="id4">Building Atlas</a></li>
+<li><a class="reference internal" href="#building-atlas-by-hand" id="id5">Building Atlas by Hand</a></li>
+<li><a class="reference internal" href="#building-atlas-with-atlas-xxx-src-rpm-from-ashigabou-repository" id="id6">Building Atlas with atlas-XXX.src.rpm from Ashigabou Repository</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mandriva-2007-1" id="id7">Mandriva 2007.1</a></li>
+<li><a class="reference internal" href="#gentoo" id="id8">Gentoo</a></li>
+<li><a class="reference internal" href="#debian-ubuntu-andrew-straw-s-unofficial-repository" id="id9">Debian / Ubuntu - Andrew Straw&#8217;s unofficial repository</a><ul>
+<li><a class="reference internal" href="#binary-packages-ubuntu-dapper-6-06-i386-and-amd64-architectures" id="id10">Binary packages Ubuntu Dapper (6.06), (i386 and amd64 architectures)</a></li>
+<li><a class="reference internal" href="#source-packages-for-any-debian-based-distribution" id="id11">Source packages for any Debian-based distribution</a></li>
+<li><a class="reference internal" href="#gpg-verification-using-andrew-straw-s-repository" id="id12">GPG Verification using Andrew Straw&#8217;s repository</a></li>
+<li><a class="reference internal" href="#debian-sarge-notes" id="id13">Debian sarge notes</a></li>
+<li><a class="reference internal" href="#ubuntu-notes" id="id14">Ubuntu notes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#opensuse" id="id15">openSUSE</a><ul>
+<li><a class="reference internal" href="#atlas" id="id16">ATLAS</a></li>
+<li><a class="reference internal" href="#broken-blas" id="id17">Broken BLAS</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#building-everything-from-source-with-gfortran-on-ubuntu" id="id18">Building everything from source with gfortran on Ubuntu</a><ul>
+<li><a class="reference internal" href="#install-required-packages" id="id19">Install required packages</a></li>
+<li><a class="reference internal" href="#build-lapack-3-1-1" id="id20">Build lapack (3.1.1)</a></li>
+<li><a class="reference internal" href="#build-atlas-3-8-0" id="id21">Build ATLAS (3.8.0)</a></li>
+<li><a class="reference internal" href="#build-umfpack-5-2-0" id="id22">Build UMFPACK (5.2.0)</a></li>
+<li><a class="reference internal" href="#build-fftw-3-1-2" id="id23">Build FFTW (3.1.2)</a></li>
+<li><a class="reference internal" href="#build-numpy-and-scipy" id="id24">Build Numpy and Scipy</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#any-distribution-with-intel-c-compiler-and-mkl" id="id25">Any distribution with Intel C compiler and MKL</a><ul>
+<li><a class="reference internal" href="#other-distributions" id="id26">Other distributions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#any-linux-distro-self-contained-local-installation-with-sage" id="id27">Any Linux distro: self-contained local installation with Sage</a></li>
+</ul>
+</div>
+<div class="section" id="introduction-source-and-binaries">
+<h2><a class="toc-backref" href="#id1">Introduction : source and binaries</a><a class="headerlink" href="#introduction-source-and-binaries" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li>On Linux, Scipy and Numpy official releases are source-code
+only. Installing Numpy and Scipy from source is reasonably easy;
+However, both packages depend on other softwares, some of them
+which can be challenging to install, or shipped with
+incompatibilities by major Linux distributions. Hopefully, you can
+install Numpy and Scipy without any software outside the necessary
+tools to build python extensions, as most dependencies are
+optional.</li>
+<li>Most major Linux distributions now ship Numpy and Scipy and,
+although the situation is still far from optimal, those binary
+packages are now reasonably reliable to use. Many other binary
+options are also available, ranging from individually made packages
+by some scipy developers for a specific Linux version, to whole
+commercially-supported scientific distributions. However, keep in
+mind that if you want to use the last improvements done to Numpy
+and Scipy on Linux, you have to build it from sources.</li>
+</ul>
+</div></blockquote>
+<p>You will find below some installation instructions and advices for
+most major distributions.</p>
+</div>
+<div class="section" id="fedora-core-8-opensuse-10-2-rhel-centos-5">
+<h2><a class="toc-backref" href="#id2">Fedora Core 8, openSUSE 10.2, RHEL/Centos 5</a><a class="headerlink" href="#fedora-core-8-opensuse-10-2-rhel-centos-5" title="Permalink to this headline">¶</a></h2>
+<p>I (DavidCournapeau) have packaged the last released of numpy, scipy as
+well as lapack and blas dependencies for Fedora Core 8, opensuse 10.2
+and Centos/RHEL 5 and a few others thanks to the opensuse build
+service. I strongly advise you to use those packages instead of the
+&#8220;official&#8221; ones, which are often unusable. The repository is there:</p>
+<p><a class="reference external" href="http://software.opensuse.org/download/home:/ashigabou/">http://software.opensuse.org/download/home:/ashigabou/</a></p>
+<div class="section" id="basic-install">
+<h3><a class="toc-backref" href="#id3">Basic install</a><a class="headerlink" href="#basic-install" title="Permalink to this headline">¶</a></h3>
+<p>To use this repository with yum, simply pick up your
+arch/distribution, and take the corresponding .repo file. Put this
+.repo file into /etc/yum.repo.d/, and then install numpy/scipy with
+yum:</p>
+<div class="highlight-python"><pre>yum install python-numpy python-scipy</pre>
+</div>
+<p>I also packaged timers and testers for blas and lapack, which can be
+useful if you intend to compile special optimized versions of
+BLAS/LAPACK (eg GOTO or ATLAS). You can also find the package
+lapack3-pic, which can be used to build a complete LAPACK with ATLAS:
+it is a static version, but as it is built with the -fPIC compiler
+flag, it can be used to build python extensions; this is particularly
+useful for x86_64 arch.</p>
+</div>
+<div class="section" id="building-atlas">
+<h3><a class="toc-backref" href="#id4">Building Atlas</a><a class="headerlink" href="#building-atlas" title="Permalink to this headline">¶</a></h3>
+<p>ATLAS is a BLAS/LAPACK implementation which tuned itself on the
+machine to provide ideal performances, and often match vendor specific
+implementations. Unfortunately, building ATLAS is not easy.  But, it
+is getting easier all the time.</p>
+</div>
+<div class="section" id="building-atlas-by-hand">
+<h3><a class="toc-backref" href="#id5">Building Atlas by Hand</a><a class="headerlink" href="#building-atlas-by-hand" title="Permalink to this headline">¶</a></h3>
+<p>These instructions show how to build ATLAS (and LAPACK) from their
+official distributions.</p>
+<p>First, download and unpackage the LAPACK distribution from netlib (you
+need these to build a complete version of LAPACK).</p>
+<div class="highlight-python"><pre>wget http://www.netlib.org/lapack/lapack-3.1.1.tgz
+tar zxvf lapack-3.1.1.tgz
+cd lapack-3.1.1</pre>
+</div>
+<p>There are several make.inc files in the INSTALL directory of the
+lapack distribution.  Copy one of those files to the main directory.
+For example:</p>
+<div class="highlight-python"><pre>cp INSTALL/make.inc.gfortran make.inc</pre>
+</div>
+<p>Now, you must edit the make.inc file to ensure that the OPTS and NOOPT
+lines both contain the flag for compiling position-independent code on
+your platform (e.g. with gcc/gfortran it is -fPIC).  For example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">OPTS</span> <span class="o">=</span> <span class="o">-</span><span class="n">O2</span> <span class="o">-</span><span class="n">fPIC</span>
+<span class="n">NOOPT</span> <span class="o">=</span> <span class="o">-</span><span class="n">O0</span> <span class="o">-</span><span class="n">fPIC</span>
+</pre></div>
+</div>
+<p>(Note: Make sure that if you build with gfortran that g77 is not
+installed on your system (or at least is not in your PATH when numpy
+is being built) as you need to link with the same compiler that you
+built lapack with when numpy builds. It will try and find g77 first
+which will lead to linking errors if you have built lapack with
+gfortran).  Then change to the SRC directory and run make</p>
+<div class="highlight-python"><pre>cd SRC
+make</pre>
+</div>
+<p>This will create an lapack_&lt;XXXX&gt;.a file in the head lapack directory.
+You will need the location of this file to configure atlas.</p>
+<p>Now, download the latest release of ATLAS (these instructions worked
+on 3.7.37).  See, for example,
+<a class="reference external" href="http://sourceforge.net/project/showfiles.php?group_id=23725">http://sourceforge.net/project/showfiles.php?group_id=23725</a>.
+Unpackage the result, change to the directory created, and create a
+directory to contain the resulting build.  This directory should be
+named appropriate for the platform (you can build for multiple
+platforms from the same SOURCE tree &#8212; perhaps the source is on a
+network drive and builds are taking place for multiple platforms).</p>
+<div class="highlight-python"><pre>tar jxvf atlas3.7.37.tar.bz2
+cd ATLAS
+mkdir ATLAS_&lt;my_platform_type&gt;</pre>
+</div>
+<div class="highlight-python"><pre>cd ATLAS_&lt;my_platform_type&gt;
+../configure -Fa alg -fPIC --with-netlib-lapack=/path/to/lapack/lapack_&lt;XXXX&gt;.a
+make</pre>
+</div>
+<p>Your atlas libraries should now be in the lib subdirectory of the
+current directory.  You should copy them to some-place that you can
+tell site.cfg about so that numpy and scipy can pick them up.  If you
+want to create shared libraries, then you can do that by</p>
+<div class="highlight-python"><pre>cd lib
+make shared     # for sequential libraries
+make ptshared   # for threaded libraries</pre>
+</div>
+<p>after changing to the lib directory where the .a files are already
+located.</p>
+</div>
+<div class="section" id="building-atlas-with-atlas-xxx-src-rpm-from-ashigabou-repository">
+<h3><a class="toc-backref" href="#id6">Building Atlas with atlas-XXX.src.rpm from Ashigabou Repository</a><a class="headerlink" href="#building-atlas-with-atlas-xxx-src-rpm-from-ashigabou-repository" title="Permalink to this headline">¶</a></h3>
+<p>ashigabou repository does not provide binary versions, but provides
+all the tools to make the building process of ATLAS almost painless:
+it will build a complete LAPACK, build it with the right fortran
+compiler to avoid ABI issues (eg _gfortran_string_write, etc...), and
+with the right compiler flags such as it is usable to build numpy and
+scipy (with the -fPIC option).</p>
+<p>First, download the source rpm included in the ashigabou repository
+(the file atlas-version.src.rpm), and install from the ashigabou
+repository the package lapack3-pic (the rpm will refuse to build
+without it). Then, use the following:</p>
+<div class="highlight-python"><pre>rpm -ivh atlas-version.src.rpm</pre>
+</div>
+<p>This will NOT install atlas, just uncompress all the necessary files
+for building the rpm in /usr/src/packages. Before building atlas, you
+must disable dynamic change of CPU frequency (used to decrease battery
+consumption):</p>
+<div class="highlight-python"><pre>cpufreq-selector -g performance</pre>
+</div>
+<p>If this fails telling you no cpufreq support, this is fine. Now, to
+build the rpm, go into the directory /usr/src/packages/SPEC, and
+execute</p>
+<div class="highlight-python"><pre>rpmbuild -ba atlas.spec</pre>
+</div>
+<p>This will build the rpm: this can take a long time, even on a powerful
+machine. What matters is whether atlas has arch defaults for your
+machine: if not, it can take several hours (it takes 2 hours and a
+half on a P4 &#64;3.2 Ghz, but takes ~10 minutes on my macbook under
+linux). If successfull, you will get an installable rpm in
+/usr/src/packages/RPMS/ARCH (where ARCH can be x86_64 or i586 or
+something else depending on the distribution and your arch).</p>
+<p>The rpm contains two (shared) libraries: libblas.so and liblapack.so,
+installed in /usr/lib/atlas/sse2. They are meant to be drop-out for
+the standard BLAS and LAPACK (the ones in refblas3 and lapack3). To
+use the atlas libraries, once you installed numpy and scipy, you
+should tell the OS to use atlas instead of default libraries by using
+LD_LIBRARY_PATH. That is, normally, you can use numpy by :</p>
+<div class="highlight-python"><pre>python -c "import numpy as N; a=N.random.randn(1000, 1000); N.dot(a, a)"</pre>
+</div>
+<p>To use atlas, you do:</p>
+<div class="highlight-python"><pre>LD_LIBRARY_PATH=/usr/lib/atlas/sse2 python -c "import numpy as N; a=N.random.randn(1000, 1000); N.dot(a, a)"</pre>
+</div>
+<p>If everything is working correctly, you will see that the above script
+runs much faster with atlas than without (I see a ten fold speed
+increase on my machine).</p>
+</div>
+</div>
+<div class="section" id="mandriva-2007-1">
+<h2><a class="toc-backref" href="#id7">Mandriva 2007.1</a><a class="headerlink" href="#mandriva-2007-1" title="Permalink to this headline">¶</a></h2>
+<p>Binary packages for !NumPy 1.0.3.1 and !SciPy 0.5.2.1 are available
+via the contrib urpmi repository:</p>
+<div class="highlight-python"><pre>urpmi python-scipy</pre>
+</div>
+</div>
+<div class="section" id="gentoo">
+<h2><a class="toc-backref" href="#id8">Gentoo</a><a class="headerlink" href="#gentoo" title="Permalink to this headline">¶</a></h2>
+<p>Gentoo includes an ebuild. Type:</p>
+<div class="highlight-python"><pre>sudo emerge scipy</pre>
+</div>
+</div>
+<div class="section" id="debian-ubuntu-andrew-straw-s-unofficial-repository">
+<h2><a class="toc-backref" href="#id9">Debian / Ubuntu - Andrew Straw&#8217;s unofficial repository</a><a class="headerlink" href="#debian-ubuntu-andrew-straw-s-unofficial-repository" title="Permalink to this headline">¶</a></h2>
+<p>Andrew Straw has an unofficial repository for !NumPy .deb
+packages. These were built with [<a class="reference external" href="http://stdeb.python-hosting.com/">http://stdeb.python-hosting.com/</a>
+stdeb]. The binaries are for Ubuntu Dapper (6.06 LTS).</p>
+<div class="section" id="binary-packages-ubuntu-dapper-6-06-i386-and-amd64-architectures">
+<h3><a class="toc-backref" href="#id10">Binary packages Ubuntu Dapper (6.06), (i386 and amd64 architectures)</a><a class="headerlink" href="#binary-packages-ubuntu-dapper-6-06-i386-and-amd64-architectures" title="Permalink to this headline">¶</a></h3>
+<p>To use the binary package in Ubuntu Dapper, add the following line to
+your /etc/apt/sources.list:</p>
+<div class="highlight-python"><pre>deb http://debs.astraw.com/ dapper/</pre>
+</div>
+<p>Then type</p>
+<div class="highlight-python"><pre>sudo apt-get install python-numpy</pre>
+</div>
+<p>You can verify ATLAS support by running the command ::ldd
+/usr/lib/python2.4/site-packages/numpy/linalg/lapack_lite.so}}}, which
+should result in output like the following:</p>
+<div class="highlight-python"><pre>liblapack.so.3 =&gt; /usr/lib/atlas/liblapack.so.3 (0x00002aaaaabcf000)
+libblas.so.3 =&gt; /usr/lib/atlas/libblas.so.3 (0x00002aaaab435000)
+libg2c.so.0 =&gt; /usr/lib/libg2c.so.0 (0x00002aaaabd15000)
+libm.so.6 =&gt; /lib/libm.so.6 (0x00002aaaabe44000)
+libgcc_s.so.1 =&gt; /lib/libgcc_s.so.1 (0x00002aaaabfca000)
+libc.so.6 =&gt; /lib/libc.so.6 (0x00002aaaac0d7000)
+/lib64/ld-linux-x86-64.so.2 (0x0000555555554000)</pre>
+</div>
+</div>
+<div class="section" id="source-packages-for-any-debian-based-distribution">
+<h3><a class="toc-backref" href="#id11">Source packages for any Debian-based distribution</a><a class="headerlink" href="#source-packages-for-any-debian-based-distribution" title="Permalink to this headline">¶</a></h3>
+<p>The following may (or may not) work on any Debian-based distribution:</p>
+<p>Add the following line to your /etc/apt/sources.list:</p>
+<div class="highlight-python"><pre>deb-src http://debs.astraw.com/ dapper/</pre>
+</div>
+<p>To download and build, type:</p>
+<div class="highlight-python"><pre>sudo apt-get build-dep python-numpy
+sudo apt-get -b source python-numpy</pre>
+</div>
+</div>
+<div class="section" id="gpg-verification-using-andrew-straw-s-repository">
+<h3><a class="toc-backref" href="#id12">GPG Verification using Andrew Straw&#8217;s repository</a><a class="headerlink" href="#gpg-verification-using-andrew-straw-s-repository" title="Permalink to this headline">¶</a></h3>
+<p>When you start using this repository, you might get warning messages
+like this:</p>
+<div class="highlight-python"><pre>The following signatures couldn't be verified because the public key is not available.</pre>
+</div>
+<p>Or you will be asked questions like this over and over:</p>
+<div class="highlight-python"><pre>WARNING: The following packages cannot be authenticated!
+...
+Install these packages without verification [y/N]?</pre>
+</div>
+<p>Install the package {{{astraw-keyring}}} to eliminate these
+messages. This installs Andrew&#8217;s archive signing key to your apt
+through the apt-key add command.</p>
+</div>
+<div class="section" id="debian-sarge-notes">
+<h3><a class="toc-backref" href="#id13">Debian sarge notes</a><a class="headerlink" href="#debian-sarge-notes" title="Permalink to this headline">¶</a></h3>
+<p>If you install !NumPy or !SciPy ontop of a debian sarge installation
+for a CPU with SSE2, there is a bug in libc6 2.3.2 affecting floating
+point operations (fixed in version 2.3.3). Due to this bug, the numpy
+and scipy tests crach with a SIGFPE. Since there is now patch
+available, in order to fix this the libc6 sources need to be
+downloaded, fixed, and rebuilt. See
+[<a class="reference external" href="http://www.its.caltech.edu/~astraw/coding.html#libc-patched-for-debian-sarge-to-fix-floating-point-exceptions-on-sse2">http://www.its.caltech.edu/~astraw/coding.html#libc-patched-for-debian-sarge-to-fix-floating-point-exceptions-on-sse2</a>
+Andrew Straw&#8217;s instructions] for more information.</p>
+</div>
+<div class="section" id="ubuntu-notes">
+<h3><a class="toc-backref" href="#id14">Ubuntu notes</a><a class="headerlink" href="#ubuntu-notes" title="Permalink to this headline">¶</a></h3>
+<p>If you choose &#8216;&#8217;&#8216;not&#8217;&#8216;&#8217; to use Andrew Straw&#8217;s repository (which
+includes numpy built with ATLAS support), here are some further notes
+to build numpy and scipy from sources on your computer.</p>
+<p>First, you need to install several libraries/tools (you need to enable
+universe repository for some of those packages):</p>
+<div class="highlight-python"><pre>sudo apt-get install gcc g77 python-dev atlas3-base-dev</pre>
+</div>
+<p>To use optimized lapack and blas, you should also install the atlas
+corresponding to your achitecture: atlas3-sse2-dev if you have a CPU
+with SSE2 capabilities, atlas3-sse-dev if you have a CPU with SSE
+capabilities only, etc... If you have a recent x86 (eg intel or AMD
+cpu), it should support SSE2. To check whether your CPU supports sse,
+sse2, etc.. you can check using the following command:</p>
+<div class="highlight-python"><pre>cat /proc/cpuinfo | grep flags</pre>
+</div>
+<p>and check whether sse, sse2, etc... appear on it.</p>
+<p>Then, you can build numpy with the following, inside the numpy source
+directory:</p>
+<div class="highlight-python"><pre>python setup.py build</pre>
+</div>
+<p>Then, to install it system-wide (requires root privileges):</p>
+<div class="highlight-python"><pre>python setup.py install</pre>
+</div>
+<p>To install it in another directory, you need to use the prefix
+option. For example, I like to install local softwares in my
+$HOME/local, so I do the following:</p>
+<div class="highlight-python"><pre>python setup.py install --prefix=$HOME/local</pre>
+</div>
+<p>Note that if you do not install numpy system wide, you need to tell
+python to look for the directory where you installed numpy. For
+example, if you use $HOME/local as the former example, then you should
+add $HOME/local/lib/python2.4/site-packages in your PYTHONPATH:</p>
+<div class="highlight-python"><pre>PYTHONPATH=$HOME/local/lib/python2.4/site-packages python</pre>
+</div>
+<p>(change python2.4 to python2.5 if you are using python2.5, obviously).</p>
+</div>
+</div>
+<div class="section" id="opensuse">
+<h2><a class="toc-backref" href="#id15">openSUSE</a><a class="headerlink" href="#opensuse" title="Permalink to this headline">¶</a></h2>
+<p>(This section reflects the situation of July 2009. If you have newer
+of more accurate information, feel free to modify this section.)</p>
+<p>OpenSUSE does not contain &#8216;&#8217;&#8216;Numpy&#8217;&#8216;&#8217;, &#8216;&#8217;&#8216;Scipy&#8217;&#8216;&#8217; or &#8216;&#8217;&#8216;Matplotlib&#8217;&#8216;&#8217;
+in the standard installation. Instead those packages are provided by
+additional repositories, that seem to be run by volunteers. However
+Novell provides webspace for some of those repositories. Packages
+usually exist only for a few current SUSE versions.</p>
+<p>The following repositories are currently the best to obtain
+&#8216;&#8217;&#8216;Numpy&#8217;&#8216;&#8217;, &#8216;&#8217;&#8216;Scipy&#8217;&#8216;&#8217; and &#8216;&#8217;&#8216;Matplotlib&#8217;&#8216;&#8217;. They can be added to
+the package manager (&#8216;&#8217;&#8216;YaST&#8217;&#8216;&#8217;) with the &#8216;&#8217;&#8216;Installation Source&#8217;&#8216;&#8217;
+dialog. The packages will then appear in the &#8216;&#8217;&#8216;Software Management&#8217;&#8216;&#8217;
+dialog.</p>
+<p>Alternatively the <tt class="docutils literal"><span class="pre">*.rpm</span></tt> files can be downloaded and installed manually
+(for example &#8216;rpm -U &lt;filename&gt;&#8217; or with &#8216;kpackage&#8217;).</p>
+<blockquote>
+<div><ul class="simple">
+<li>Science: [<a class="reference external" href="http://download.opensuse.org/repositories/science/">http://download.opensuse.org/repositories/science/</a>]<ul>
+<li>This repository contains: &#8216;&#8217;&#8216;Numpy&#8217;&#8216;&#8217;, &#8216;&#8217;&#8216;Scipy&#8217;&#8216;&#8217;,
+&#8216;&#8217;&#8216;Matplotlib&#8217;&#8216;&#8217;, and many more packages of interest for
+scientific users.</li>
+<li>Installation was tested with openSUSE 11.0 and 11.1, both i586
+and x86-64.<ul>
+<li>For openSUSE 11.1-x586 additionally the
+[<a class="reference external" href="http://en.opensuse.org/Additional_YaST_Package_Repositories#Packman">http://en.opensuse.org/Additional_YaST_Package_Repositories#Packman</a>
+Packman repository] was required as an &#8216;Installation
+Source&#8217;. Select a suitable mirror from the
+[<a class="reference external" href="http://en.opensuse.org/Additional_YaST_Package_Repositories#Packman">http://en.opensuse.org/Additional_YaST_Package_Repositories#Packman</a>
+list].</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Education: [<a class="reference external" href="http://www.opensuse-education.org/download/repo/1.0/">http://www.opensuse-education.org/download/repo/1.0/</a>]
+This project seems to have some backing from Novell. It is
+primarily oriented towards schools. The repository was added
+despite of the broken packages, because it is big and still
+active. Also its relatively wide audience (schools) might lead to
+continuing development. (The author of this section has also filed
+bug reports in their Bugzilla.)<ul>
+<li>This repository contains: &#8216;&#8217;&#8216;Numpy&#8217;&#8216;&#8217;, &#8216;&#8217;&#8216;Scipy&#8217;&#8216;&#8217;,
+&#8216;&#8217;&#8216;Matplotlib&#8217;&#8216;&#8217;, and very many other packages.</li>
+<li>Repository has own Bugzilla:
+[<a class="reference external" href="http://devzilla.novell.com/education/enter_bug.cgi">http://devzilla.novell.com/education/enter_bug.cgi</a>] and Website:
+[<a class="reference external" href="http://en.opensuse.org/Education">http://en.opensuse.org/Education</a>]</li>
+<li>Tested with openSUSE 11.0 and 11.1, x86-64:<ul>
+<li>openSUSE 11.0: &#8216;&#8217;&#8216;broken&#8217;&#8216;&#8217; package &#8216;&#8217;&#8216;Scipy&#8217;&#8216;&#8217;</li>
+<li>openSUSE 11.1: one error in scipy.test(), package seems
+(mostly) functional though.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div></blockquote>
+<p>Alternatively one can search for packages in repositories hosted by
+Novell here: [<a class="reference external" href="http://software.opensuse.org/search">http://software.opensuse.org/search</a>].</p>
+<p>One can also search for packages in the very big Packman repository:
+[<a class="reference external" href="http://packman.links2linux.org/">http://packman.links2linux.org/</a>].</p>
+<blockquote>
+<div><ul class="simple">
+<li>Lists of Packman mirrors:
+[<a class="reference external" href="http://en.opensuse.org/Additional_YaST_Package_Repositories#Packman">http://en.opensuse.org/Additional_YaST_Package_Repositories#Packman</a>
+1] [<a class="reference external" href="http://packman.links2linux.de/MIRRORS.html">http://packman.links2linux.de/MIRRORS.html</a> 2]</li>
+<li>The packman repository should be given a low priority (high value,
+for example 200, in priority field). It contains very many
+packages, that are also present in SUSE&#8217;s standard
+repositories. These packages might otherwise override original
+packages from SUSE.</li>
+</ul>
+</div></blockquote>
+<p>Users of older versions of SUSE/openSuse can install &#8216;&#8217;&#8216;Sage&#8217;&#8216;&#8217;, a big
+collection of Mathematics related software. It was recently
+(Jul. 2009) reported that compiling and installing Sage from sources
+worked flawlessly, on SUSE Linux 10.2:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Sage [<a class="reference external" href="http://www.sagemath.org/download-source.html">http://www.sagemath.org/download-source.html</a>]</li>
+<li>A more detailed description
+[<a class="reference external" href="http://www.scipy.org/Installing_SciPy/Linux#head-f4511786c10fc5a608027f22e65df5e5078357b6">http://www.scipy.org/Installing_SciPy/Linux#head-f4511786c10fc5a608027f22e65df5e5078357b6</a>
+how to install Sage from sources] is on this page too.</li>
+</ul>
+</div></blockquote>
+<div class="section" id="atlas">
+<h3><a class="toc-backref" href="#id16">ATLAS</a><a class="headerlink" href="#atlas" title="Permalink to this headline">¶</a></h3>
+<p>[<a class="reference external" href="http://math-atlas.sourceforge.net/">http://math-atlas.sourceforge.net/</a> ATLAS] is a replacement for
+[<a class="reference external" href="http://www.netlib.org/blas/index.html">http://www.netlib.org/blas/index.html</a> BLAS] and parts of
+[<a class="reference external" href="http://www.netlib.org/lapack/index.html">http://www.netlib.org/lapack/index.html</a> LAPACK], that is much faster.
+It must be built from sources, because it optimizes itself for the
+computer&#8217;s processor.  The build process will run for ten minutes to
+several hours.</p>
+<p>&#8216;&#8217;&#8216;There is currently no comfortable way to use ATLAS on openSuse.&#8217;&#8216;&#8217;</p>
+<p>The
+[<a class="reference external" href="http://www.scipy.org/Installing_SciPy/Linux#head-89e1f6afaa3314d98a22c79b063cceee2cc6313c">http://www.scipy.org/Installing_SciPy/Linux#head-89e1f6afaa3314d98a22c79b063cceee2cc6313c</a>
+build instructions for ATLAS] on this page work, but unfortunately the
+Numpy and Scipy packages don&#8217;t work with ATLAS.  One could build Numpy
+and Scipy from sources though, and a relatively painless way to do
+this is the
+[<a class="reference external" href="http://www.scipy.org/Installing_SciPy/Linux#head-f4511786c10fc5a608027f22e65df5e5078357b6">http://www.scipy.org/Installing_SciPy/Linux#head-f4511786c10fc5a608027f22e65df5e5078357b6</a>
+Sage] package.  (If you know a comfortable way to make ATLAS work on
+openSuse, please put it here into the Wiki.)</p>
+<p>David Cournapeau has a repository devoted to ATLAS, but he has not
+added packages for recent SUSE versions.</p>
+<blockquote>
+<div><ul class="simple">
+<li>Ashigabou [<a class="reference external" href="http://software.opensuse.org/download/home:/ashigabou/">http://software.opensuse.org/download/home:/ashigabou/</a>]
+This repository contains: &#8216;&#8217;&#8216;ATLAS&#8217;&#8216;&#8217; and additionally other
+scientific software.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="broken-blas">
+<h3><a class="toc-backref" href="#id17">Broken BLAS</a><a class="headerlink" href="#broken-blas" title="Permalink to this headline">¶</a></h3>
+<p>SUSE (and Red Hat) regularly shipped versions of the BLAS library
+where some functions were missing. This bug has finally been fixed in
+March 2007. This means SUSE 10.2 and prior come with a broken BLAS, in
+later versions SUSE&#8217;s original BLAS should work. Unfortunately the
+repositories mentioned here do no longer contain corrected/complete
+packages of BLAS and LAPACK for the affected versions (SUSE 10.2 and
+older).</p>
+<p>The bug&#8217;s cause was as follows: The BLAS rpm is created from
+[<a class="reference external" href="http://www.netlib.org">http://www.netlib.org</a> Netlib&#8217;s]
+[<a class="reference external" href="http://www.netlib.org/lapack/index.html">http://www.netlib.org/lapack/index.html</a> LAPACK package] and not from
+the [<a class="reference external" href="http://www.netlib.org/blas/index.html">http://www.netlib.org/blas/index.html</a> BLAS package]. Until March
+2007 however the LAPACK library did only contain a subset of the
+functions that were in BLAS.  Finally someone begged the LAPACK
+developers to include the whole BLAS library in the LAPACK package,
+and they did.</p>
+<p>For details see: [<a class="reference external" href="https://bugzilla.novell.com/show_bug.cgi?id=228824">https://bugzilla.novell.com/show_bug.cgi?id=228824</a>]
+and [<a class="reference external" href="http://www.netlib.org/lapack/lapack-3.1.1.changes">http://www.netlib.org/lapack/lapack-3.1.1.changes</a>]</p>
+</div>
+</div>
+<div class="section" id="building-everything-from-source-with-gfortran-on-ubuntu">
+<h2><a class="toc-backref" href="#id18">Building everything from source with gfortran on Ubuntu</a><a class="headerlink" href="#building-everything-from-source-with-gfortran-on-ubuntu" title="Permalink to this headline">¶</a></h2>
+<p>This is how I built everything from source on a 64 bit Ubuntu system
+with latest versions as of February 2008. It took me some time to work
+out the issues so I thought I&#8217;d put the details here. I believe it
+should work the same on 32 bit systems (leaving out 64 bit related
+options).</p>
+<div class="section" id="install-required-packages">
+<h3><a class="toc-backref" href="#id19">Install required packages</a><a class="headerlink" href="#install-required-packages" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><pre>sudo apt-get install build-essential python-dev swig gfortran</pre>
+</div>
+<p>Install nose (easy_install nose). Do not install python-nose, it is an
+earlier version that doesn&#8217;t work with scipy. Also make sure g77 is
+not installed. Distutils will not use gfortran if g77 is installed.</p>
+<div class="highlight-python"><pre>sudo apt-get remove python-nose
+sudo apt-get remove g77
+sudo apt-get install python-setuptools
+sudo easy_install nose</pre>
+</div>
+</div>
+<div class="section" id="build-lapack-3-1-1">
+<h3><a class="toc-backref" href="#id20">Build lapack (3.1.1)</a><a class="headerlink" href="#build-lapack-3-1-1" title="Permalink to this headline">¶</a></h3>
+<p>As described above, copy make.inc.gfortran, add -fPIC flags (and -m64
+if building 64 bit) to OPTS and NOOPT. Run make in SRC directory.</p>
+</div>
+<div class="section" id="build-atlas-3-8-0">
+<h3><a class="toc-backref" href="#id21">Build ATLAS (3.8.0)</a><a class="headerlink" href="#build-atlas-3-8-0" title="Permalink to this headline">¶</a></h3>
+<p>As described above untar, create a directory for your build in ATLAS
+and run configure (add option &#8216;-b 64&#8217; for 64 bit).</p>
+<div class="highlight-python"><pre>sudo cpufreq-selector -g performance
+../configure -b 64 -Fa alg -fPIC --with-netlib-lapack=/path/to/lapack/lapack_&lt;XXXX&gt;.a
+make</pre>
+</div>
+<p>Copy the libraries to a lib directory (/usr/local/lib or
+~/scipy_build/lib for example). I found it&#8217;s easier to copy all needed
+libraries and files to a common directory.</p>
+</div>
+<div class="section" id="build-umfpack-5-2-0">
+<h3><a class="toc-backref" href="#id22">Build UMFPACK (5.2.0)</a><a class="headerlink" href="#build-umfpack-5-2-0" title="Permalink to this headline">¶</a></h3>
+<p>Get the latest versions of AMD, UFconfig and UMFPACK and untar them
+into a directory.</p>
+<p>UFconfig/UFconfig.mk should contain:</p>
+<div class="highlight-python"><pre>CC = gcc
+CFLAGS = -O3 -fexceptions -m64 -fPIC
+F77 = gfortran
+F77FLAGS = -O -m64 -fPIC
+BLAS = -L/usr/lib/gcc/x86_64-linux-gnu/4.2.1 -L/home/robince/scipy_build/lib -llapack -lf77blas -lcblas -latlas -lgfortran
+LAPACK = -L/usr/lib/gcc/x86_64-linux-gnu/4.2.1 -L/home/robince/scipy_build/lib -llapack -lf77blas -lcblas -latlas -lgfortran</pre>
+</div>
+<p>On a 32 bit system, remove the -m64 flags and change the first -L
+option to -L/usr/lib/gcc/i486-linux-gnu/4.2.1.</p>
+<p>Run &#8216;make&#8217; in UMFPACK directory. Copy resulting libraries and include
+files.</p>
+<div class="highlight-python"><pre>cp AMD/Lib/libamd.a ~/scipy_build/lib
+cp UMFPACK/Lib/libumfpack.a ~/scipy_build/lib
+cp AMD/Include/amd.h ~/scipy_build/lib/include
+cp UFconfig/UFconfig.h ~/scipy_build/lib/include
+cp UMFPACK/Include/*.h ~/scipy_build/lib/include</pre>
+</div>
+<p>Copy libgfortran into scipy library directory (doesn&#8217;t seem to work if
+it doesn&#8217;t find the umfpack_libs together).</p>
+<div class="highlight-python"><pre>cp /usr/lib/gcc/x86_64-linux-gnu/4.2/libgfortran.* ~/scipy_build/lib/</pre>
+</div>
+</div>
+<div class="section" id="build-fftw-3-1-2">
+<h3><a class="toc-backref" href="#id23">Build FFTW (3.1.2)</a><a class="headerlink" href="#build-fftw-3-1-2" title="Permalink to this headline">¶</a></h3>
+<p>After untarring, run configure. I ran configure first and extracted
+the suggested FLAGS from the Makefile, then added -fPIC and -m64. (Not
+sure if this is necessary)</p>
+<div class="highlight-python"><pre>./configure --enable-sse2 --enable-threads --with-combined-threads CFLAGS="-O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -pthread -fPIC -m64" FFLAGS="-g -O2 -fPIC -m64" CXXFLAGS="-g -O2 -fPIC -m64"
+make
+sudo make install</pre>
+</div>
+</div>
+<div class="section" id="build-numpy-and-scipy">
+<h3><a class="toc-backref" href="#id24">Build Numpy and Scipy</a><a class="headerlink" href="#build-numpy-and-scipy" title="Permalink to this headline">¶</a></h3>
+<p>Set the following entries in site.cfg (this will also work with fftw
+if it has been compiled and installed in the default location
+(/usr/local):</p>
+<div class="highlight-python"><pre>[DEFAULT]
+library_dirs = /usr/local/lib:/home/robince/scipy_build/lib
+include_dirs = /usr/local/include:/home/robince/scipy_build/lib/include
+
+[atlas]
+atlas_libs = lapack, f77blas, cblas, atlas
+
+[amd]
+amd_libs = amd
+
+[umfpack]
+umfpack_libs = umfpack, gfortran
+
+[fftw]
+libraries = fftw3</pre>
+</div>
+<p>Build Numpy and Scipy.</p>
+<div class="highlight-python"><pre>python setup.py build
+sudo python setup.py install</pre>
+</div>
+</div>
+</div>
+<div class="section" id="any-distribution-with-intel-c-compiler-and-mkl">
+<h2><a class="toc-backref" href="#id25">Any distribution with Intel C compiler and MKL</a><a class="headerlink" href="#any-distribution-with-intel-c-compiler-and-mkl" title="Permalink to this headline">¶</a></h2>
+<p>The
+[<a class="reference external" href="http://www.intel.com/cd/software/products/asmo-na/eng/compilers/clin/219856.htm">http://www.intel.com/cd/software/products/asmo-na/eng/compilers/clin/219856.htm</a>
+Intel C compiler] and
+[<a class="reference external" href="http://www3.intel.com/cd/software/products/asmo-na/eng/perflib/mkl/219859.htm">http://www3.intel.com/cd/software/products/asmo-na/eng/perflib/mkl/219859.htm</a>
+Intel MKL] are free for personal non-commercial use.</p>
+<p>Add some variation of the following lines to site.cfg in your top
+level numpy directory to use MKL:</p>
+<div class="highlight-python"><pre>[mkl]
+library_dirs = /home/youruser/intel/mkl/8.1/lib/32
+mkl_libs = mkl, vml
+include_dirs = /home/youruser/intel/mkl/8.1/include</pre>
+</div>
+<p>There are also libraries for the IA-64 and EM64T processors.</p>
+<p>Modify cc_exe in numpy/numpy/distutils/intelccompiler.py to be
+something like:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">cc_exe</span> <span class="o">=</span> <span class="s">&#39;icc -O2 -g -fomit-frame-pointer -mcpu=pentium4 -mtune=pentium4 -march=pentium4 -msse2 -axWN -Wall&#39;</span>
+</pre></div>
+</div>
+<p>Run icc &#8211;help for more information on processor-specific options.</p>
+<p>Compile and install !NumPy with the Intel compiler:</p>
+<div class="highlight-python"><pre>python setup.py config --compiler=intel build_clib --compiler=intel build_ext --compiler=intel install</pre>
+</div>
+<p>Compile and install !SciPy with the Intel compilers:</p>
+<div class="highlight-python"><pre>python setup.py config --compiler=intel --fcompiler=intel build_clib --compiler=intel --fcompiler=intel build_ext --compiler=intel --fcompiler=intel install</pre>
+</div>
+<p>You&#8217;ll have to set LD_LIBRARY_PATH to</p>
+<div class="highlight-python"><pre>~/intel/mkl/8.1/lib/32/:~/intel/cc/9.1.044/lib</pre>
+</div>
+<p>(exact values will depend on your architecture, compiler and library
+versions) for !NumPy to work. This can still cause problems. The only
+solution I&#8217;ve found that always works is to build Python, !NumPy and
+!SciPy inside an environment where you&#8217;ve set the LD_RUN_PATH
+variable, e.g:</p>
+<div class="highlight-python"><pre>export LD_RUN_PATH=~/opt/lib:~/intel/cc/9.1.044/lib:~/intel/fc/9.1.039/lib:~/intel/mkl/8.1/lib/32</pre>
+</div>
+<p>Configure Python with {{{&#8211;prefix=$HOME/opt}}}, make, make install,
+add {{{$HOME/opt/bin}}} to the front of your PATH and then build
+!NumPy and !SciPy with the {{{site.cfg}}} as above in their top level
+directories (check the config step&#8217;s output carefully to make sure it
+selects MKL). Built like this, you shouldn&#8217;t have to set any
+LD_LIBRARY_PATH for !NumPy and !SciPy to work. Run the test suites to
+verify this.</p>
+<div class="section" id="other-distributions">
+<h3><a class="toc-backref" href="#id26">Other distributions</a><a class="headerlink" href="#other-distributions" title="Permalink to this headline">¶</a></h3>
+<p>For other distributions, see
+[<a class="reference external" href="http://pong.tamu.edu/tiki/tiki-view_blog_post.php?blogId=6&amp;postId=97">http://pong.tamu.edu/tiki/tiki-view_blog_post.php?blogId=6&amp;postId=97</a>
+the unofficial instructions by written by Steve Baum].</p>
+</div>
+</div>
+<div class="section" id="any-linux-distro-self-contained-local-installation-with-sage">
+<h2><a class="toc-backref" href="#id27">Any Linux distro: self-contained local installation with Sage</a><a class="headerlink" href="#any-linux-distro-self-contained-local-installation-with-sage" title="Permalink to this headline">¶</a></h2>
+<p>All you need is some basic tools like gcc (no fortran).</p>
+<p>Follow the instructions here to build sage from source:</p>
+<p><a class="reference external" href="http://www.sagemath.org/doc/installation/source.html">http://www.sagemath.org/doc/installation/source.html</a></p>
+<p>All you have to do is unpack the tar and type &#8216;&#8217;&#8216;make&#8217;&#8216;&#8217;. This takes
+about 3 hours.</p>
+<p>This will install sage in its own directory. python (and ipython) can
+be found in SAGEROOT/local/bin</p>
+<p>If you don&#8217;t want to have to type in absolute paths, you can set the
+environment variables to point to your sage executables. To do this,
+run sage with the -sh option. My .profile contains the line</p>
+<div class="highlight-python"><pre>~/Sage/sage -sh</pre>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li><a href="../content.html">SciPy</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2009 SciPy developers.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+    </div>
+  </body>
+</html>

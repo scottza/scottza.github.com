@@ -1,0 +1,470 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Building NumPy &amp; SciPy From Source on Windows &mdash; SciPy</title>
+    
+    <link rel="stylesheet" href="../_static/scipy.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="SciPy" href="../index.html" /> 
+  </head>
+  <body>
+<div class="top-logo-header">
+<a href="../index.html"><img src="../_static/logo.gif" border="0" alt="SciPy Website"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li><a href="../content.html">SciPy</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  
+<h3>Site Navigation</h3>
+
+<ul>
+<li><a href="http://scipynews.blogspot.com">News</a></li>
+<li><a href="http://planet.scipy.org">Blogs</a></li>
+<li><a href="http://conference.scipy.org">Conference</a></li>
+<li><a href="../download.html">Download</a></li>
+<li><a href="http://www.scipy.org/Cookbook">Cookbook</a></li>
+<li><a href="http://docs.scipy.org">Documentation</a></li>
+<li><a href="../mailing-lists.html">Mailing Lists</a></li>
+<li><a href="http://www.scipy.org/Topical_Software">Topical Software</a></li>
+<li><a href="../dev-zone.html">Developer Zone</a></li>
+</ul>
+
+
+
+
+  <h3><a href="../content.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Building NumPy &amp; SciPy From Source on Windows</a><ul>
+<li><a class="reference internal" href="#supported-compilers">Supported Compilers</a></li>
+<li><a class="reference internal" href="#downloading-and-installing-a-compiler">Downloading and installing a compiler</a><ul>
+<li><a class="reference internal" href="#id1">MinGW</a></li>
+<li><a class="reference internal" href="#id2">Cygwin</a></li>
+<li><a class="reference internal" href="#visual-studio">Visual Studio</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#building-numpy-with-the-intel-math-kernel-library-mkl">Building NumPy with the Intel Math Kernel Library (MKL)</a></li>
+<li><a class="reference internal" href="#blas-lapack-and-atlas">BLAS, LAPACK and ATLAS</a><ul>
+<li><a class="reference internal" href="#building-atlas">Building ATLAS</a></li>
+<li><a class="reference internal" href="#building-lapack">Building LAPACK</a></li>
+<li><a class="reference internal" href="#obtaining-an-atlas-optimized-lapack">Obtaining an ATLAS-optimized LAPACK</a></li>
+<li><a class="reference internal" href="#building-numpy-with-atlas-lapack">Building NumPy with ATLAS/LAPACK</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#miscellaneous-notes">Miscellaneous Notes</a></li>
+<li><a class="reference internal" href="#building-scipy">Building SciPy</a></li>
+</ul>
+</li>
+</ul>
+
+<div id="searchbox" style="display: none">
+    <h3>Search</h3>
+<form class="search" action="http://www.google.com/search" method="get">
+    <!-- we'll use google at least until we get everything in sphinx -->
+    <input type="text" name="q" size="18" />
+    <input type="submit" value="Go" />
+    <input type="hidden" name="as_sitesearch" value="scipy.org">
+  </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="building-numpy-scipy-from-source-on-windows">
+<h1>Building NumPy &amp; SciPy From Source on Windows<a class="headerlink" href="#building-numpy-scipy-from-source-on-windows" title="Permalink to this headline">¶</a></h1>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><a class="reference internal" href="#supported-compilers" id="id3">Supported Compilers</a></li>
+<li><a class="reference internal" href="#downloading-and-installing-a-compiler" id="id4">Downloading and installing a compiler</a><ul>
+<li><a class="reference internal" href="#id1" id="id5">MinGW</a></li>
+<li><a class="reference internal" href="#id2" id="id6">Cygwin</a></li>
+<li><a class="reference internal" href="#visual-studio" id="id7">Visual Studio</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#building-numpy-with-the-intel-math-kernel-library-mkl" id="id8">Building NumPy with the Intel Math Kernel Library (MKL)</a></li>
+<li><a class="reference internal" href="#blas-lapack-and-atlas" id="id9">BLAS, LAPACK and ATLAS</a><ul>
+<li><a class="reference internal" href="#building-atlas" id="id10">Building ATLAS</a></li>
+<li><a class="reference internal" href="#building-lapack" id="id11">Building LAPACK</a></li>
+<li><a class="reference internal" href="#obtaining-an-atlas-optimized-lapack" id="id12">Obtaining an ATLAS-optimized LAPACK</a></li>
+<li><a class="reference internal" href="#building-numpy-with-atlas-lapack" id="id13">Building NumPy with ATLAS/LAPACK</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#miscellaneous-notes" id="id14">Miscellaneous Notes</a></li>
+<li><a class="reference internal" href="#building-scipy" id="id15">Building SciPy</a></li>
+</ul>
+</div>
+<div class="section" id="supported-compilers">
+<h2><a class="toc-backref" href="#id3">Supported Compilers</a><a class="headerlink" href="#supported-compilers" title="Permalink to this headline">¶</a></h2>
+<p>As is pointed out in the general build guidelines, building NumPy and SciPy
+requires a C compiler. Furthermore, a Fortran 77 compiler is needed to build
+SciPy and to build a LAPACK library for use in NumPy and SciPy.</p>
+<p>The <a class="reference external" href="http://www.mingw.org/">MinGW</a> project provides windows versions of the free GNU compilers gcc and
+g77. These are the compilers most SciPy developers work with and hence the
+compilers that are supported the best by the SciPy build scripts.</p>
+<p><a class="reference external" href="http://www.cygwin.com/">Cygwin</a> is a POSIX compatible Linux-like environment for Windows. It is a very
+useful tool as it allows to compile and use many Unix tools without
+modification. We&#8217;ll need it for the compilation of ATLAS. If selected during
+installation, Cygwin also makes available its own versions of the MinGW
+compilers (by the command line option &#8220;-mno-cygwin&#8221; to gcc), which produce
+identical code. There is no need to install the separate MinGW distribution
+when Cygwin is already installed.</p>
+<p>SciPy also supports <strong>Microsoft Visual C++</strong> (MSVC) as the C/C++ compiler
+extension modules for the official binary distribution of Python, the runtime
+libraries have to be compatible. As the official versions of Python 2.3/2.4/2.5
+are compiled with Visual Studio 2003 (Visual Studio 7.1) and hence linked to
+msvcr71, this leaves only MSVC 7.1 to build extensions for these Python
+versions. This pretty much excludes the free (as in beer) <a class="reference internal" href="#visual-studio-2005">Visual Studio 2005</a>
+Express, at least if one doesn&#8217;t also want to build Python (and all other
+extension modules) from sources with MSVC 8 - which currently is not offically
+supported. Combining MSVC with G77 from MinGW or Cygwin is supported, as is the
+combination with other Fortran compilers.</p>
+</div>
+<div class="section" id="downloading-and-installing-a-compiler">
+<span id="visual-studio-2005"></span><h2><a class="toc-backref" href="#id4">Downloading and installing a compiler</a><a class="headerlink" href="#downloading-and-installing-a-compiler" title="Permalink to this headline">¶</a></h2>
+<p>Generally you only need one C compiler (and one Fortran compiler). Cygwin is
+required if you want to build ATLAS yourself.</p>
+<div class="section" id="id1">
+<h3><a class="toc-backref" href="#id5">MinGW</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>The easiest way to install MinGW is to use the MinGW installer from here. The
+current (as of 3 August, 06) candidate distribution with gcc and g77 3.4.5 is
+reported to work best. After installation you need to put the MinGWbin
+directory on the path.</p>
+</div>
+<div class="section" id="id2">
+<h3><a class="toc-backref" href="#id6">Cygwin</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>Cygwin can be conveniently installed and updated with their
+<cite>convenient installer &lt;http://www.cygwin.com/setup.exe&gt;</cite>.</p>
+<p>Make sure that the <tt class="docutils literal"><span class="pre">gcc</span></tt> and <tt class="docutils literal"><span class="pre">gcc-mingw</span></tt> packages in the &#8220;Devel&#8221; section
+are selected. If you want to use the official Python distribution (recommended)
+and don&#8217;t want to get confused, do not select the Python option in the Cygwin
+installer. The Cygwin tools should be used from within the Cygwin <tt class="docutils literal"><span class="pre">bash</span></tt>
+shell available from the start menu after installation.  See this
+<a class="reference external" href="http://cplus.about.com/od/compilersandides/l/aa061304a.htm">tutorial</a>
+explaining the basics of Cygwin.</p>
+</div>
+<div class="section" id="visual-studio">
+<h3><a class="toc-backref" href="#id7">Visual Studio</a><a class="headerlink" href="#visual-studio" title="Permalink to this headline">¶</a></h3>
+<p>The installation is quite straightforward; see the documentation provided by
+Microsoft for additional help. The command line tools are most conveniently
+used from the Visual Studio command prompt available from  the start menu.</p>
+</div>
+</div>
+<div class="section" id="building-numpy-with-the-intel-math-kernel-library-mkl">
+<h2><a class="toc-backref" href="#id8">Building NumPy with the Intel Math Kernel Library (MKL)</a><a class="headerlink" href="#building-numpy-with-the-intel-math-kernel-library-mkl" title="Permalink to this headline">¶</a></h2>
+<p>NumPy can be built using the optimized BLAS and LAPACK libraries within
+Intel&#8217;s Math Kernel Library. MKL&#8217;s implementation of BLAS and LAPACK are
+apparently better optimized for Intel chips than ATLAS&#8217;s implementation.</p>
+<p>Download the trial of MKL for Windows and install it. The trial is 30 days,
+but it&#8217;s currently unknown what will happen to the library and header files
+on your hard drive after that period has expired.</p>
+<p>You can use MKL to build with MSVC7.1, the same compiler used by Python
+&gt;= 2.4. Make sure you have Visual Studio 2003 installed.</p>
+<p>Once you&#8217;ve checked out the source for NumPy, create an empty file called
+<tt class="docutils literal"><span class="pre">.numpy-site.cfg</span></tt> in your home directory (something like <tt class="docutils literal"><span class="pre">C:\Documents</span> <span class="pre">and</span>
+<span class="pre">Settings\username</span></tt>). Windows Explorer might not allow you to create a file
+starting with &#8221;.&#8221;, so you may have to use the command line to rename it. Make
+sure you have a <tt class="docutils literal"><span class="pre">HOME</span></tt> user environment variable that points to your home
+directory (see Control Panel/System/Advanced/Environment Variables). Add the
+following to the file, substituting your MKL installation path where
+appropriate:</p>
+<dl class="docutils">
+<dt>::</dt>
+<dd><p class="first"># config file for building numpy on ia32 platform,
+# using Intel&#8217;s Math Kernel Library for win32
+# builds successfully with MSVC7.1
+# replace C:Program FilesIntelMKL9.0 with your Intel MKL install path</p>
+<p class="last">[mkl]
+include_dirs = C:Program FilesIntelMKL9.0include
+library_dirs = C:Program FilesIntelMKL9.0ia32lib
+mkl_libs = mkl_ia32, mkl_c_dll, libguide40
+lapack_libs = mkl_lapack
+# mkl_c or mkl_c_dll? either seem to work:
+# mkl_c : &#8220;cdecl interface library&#8221;
+# mkl_c_dll : &#8220;cdecl interface library for dynamic library&#8221;
+# libguide or libguide40? either seem to work:
+# libguide.lib : &#8220;Static threading library&#8221;
+# libguide40.lib : &#8220;Interface library for dynamic threading library&#8221;</p>
+</dd>
+</dl>
+<p>Check that the specified libraries can indeed be found by running:</p>
+<dl class="docutils">
+<dt>::</dt>
+<dd>python setup.py config</dd>
+</dl>
+<p>from the root NumPy source directory. Then, (as of numpy r3726) all that&#8217;s
+required is running:</p>
+<dl class="docutils">
+<dt>::</dt>
+<dd>python setup.py install</dd>
+</dl>
+<p>This should build NumPy without errors and install it to your site-packages
+directory. Make sure you test your NumPy installation by running
+<tt class="xref py py-func docutils literal"><span class="pre">numpy.test()</span></tt>.</p>
+</div>
+<div class="section" id="blas-lapack-and-atlas">
+<h2><a class="toc-backref" href="#id9">BLAS, LAPACK and ATLAS</a><a class="headerlink" href="#blas-lapack-and-atlas" title="Permalink to this headline">¶</a></h2>
+<p>NumPy and SciPy can be built with support for optimized <a class="reference external" href="http://www.netlib.org/blas/faq.html">BLAS</a> and <a class="reference external" href="http://www.netlib.org/lapack/faq.html">LAPACK</a>
+libraries (the supported BLAS interface is the CBLAS interface, not the
+Fortran 77 interface).</p>
+<p>Pre-built versions of the ATLAS libraries are available for several
+processors:</p>
+<div class="section" id="building-atlas">
+<h3><a class="toc-backref" href="#id10">Building ATLAS</a><a class="headerlink" href="#building-atlas" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="http://math-atlas.sourceforge.net/">ATLAS</a> is the most widely available, free BLAS implementation on Windows. It
+is well supported by NumPy and SciPy.</p>
+<p><strong>IMPORTANT:</strong> NumPy and SciPy in Windows can currently only make use of CBLAS
+and LAPACK as <em>static libraries</em> - DLLs are not supported.</p>
+<p>If you don&#8217;t yet have optimized static CBLAS and LAPACK libraries, you can
+easily build them from within Cygwin (LAPACK also can just as easily be built
+with MinGW).</p>
+<blockquote>
+<div><ol class="arabic">
+<li><p class="first">Download and extract the most recent version of the ATLAS sources.
+Currently the most stable &#8220;unstable&#8221; version is 3.7.11. A new &#8220;stable&#8221;
+version is expected to be released this summer, the 3.6.0 version is
+already pretty dated.</p>
+</li>
+<li><p class="first">To avoid <a class="reference external" href="http://math-atlas.sourceforge.net/errata.html#sse3kill">SSE3 problems</a> on some platforms, deactivate SSE3 by replacing
+line 77 in <tt class="docutils literal"><span class="pre">ATLAS/CONFIG/probe_SSE3.c</span></tt> with</p>
+<div class="highlight-python"><pre>/* if (testv3[0] != 3.0 || testv3[1] != 7.0) */</pre>
+</div>
+</li>
+<li><p class="first">Execute make in the Cygwin command prompt in the Atlas root directory. In
+Cygwin the Windows drives <tt class="docutils literal"><span class="pre">C:\</span></tt>, <tt class="docutils literal"><span class="pre">D:\</span></tt>, etc. are mapped to
+<tt class="docutils literal"><span class="pre">/cygdrive/c/</span></tt>, <tt class="docutils literal"><span class="pre">/cygdrive/d/</span></tt>, etc.</p>
+</li>
+<li><p class="first">Generally accept the default options by hitting return. Select the correct
+processor. Do not activate POSIX threads. Use the express installation.
+You do not need to specify custom compiler flags, the <tt class="docutils literal"><span class="pre">-mno-cygwin</span></tt> does
+not make a difference at this stage. Accept the architecture defaults. If
+you do not know your processor type, downloading and running <a class="reference external" href="http://www.cpuid.com/cpuz.php">CPU-Z</a> may
+help.</p>
+</li>
+<li><p class="first">As prompted by the config script, execute  <tt class="docutils literal"><span class="pre">make</span> <span class="pre">install</span>
+<span class="pre">arch=YOUR_ARCHITECTURE</span></tt> . This can take anywhere from 15 minutes to
+several hours, depending on your setup.</p>
+</li>
+<li><p class="first">Execute <tt class="docutils literal"><span class="pre">make</span> <span class="pre">sanity_test</span> <span class="pre">arch=YOUR_ARCHITECTURE</span></tt>  and hope that no tests
+fail (the message <tt class="docutils literal"><span class="pre">[sanity_test]</span> <span class="pre">Error</span> <span class="pre">1</span> <span class="pre">(ignored)</span></tt> is to be expected).</p>
+</li>
+</ol>
+</div></blockquote>
+<p>Now copy the files <tt class="docutils literal"><span class="pre">libatlas.a</span></tt>, <tt class="docutils literal"><span class="pre">libcblas.a</span></tt>, <tt class="docutils literal"><span class="pre">libf77blas.a</span></tt> and
+<tt class="docutils literal"><span class="pre">liblapack.a</span></tt> from <tt class="docutils literal"><span class="pre">ATLAS\lib\YOUR_ARCHITECTURE</span></tt> to a directory of your
+choice, for example <tt class="docutils literal"><span class="pre">C:\BLASLAPACKLIBS</span></tt>.</p>
+</div>
+<div class="section" id="building-lapack">
+<h3><a class="toc-backref" href="#id11">Building LAPACK</a><a class="headerlink" href="#building-lapack" title="Permalink to this headline">¶</a></h3>
+<p>Once you&#8217;ve completed the steps above,</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Download and extract the <a class="reference external" href="http://www.netlib.org/lapack/lapack.tgz">LAPACK sources</a>. Then download the <a class="reference external" href="http://www.netlib.org/lapack-dev/">latest
+development patch</a> and overwrite the
+files from the standard distribution with the files in the patch.</li>
+<li>Copy the file <tt class="docutils literal"><span class="pre">LAPACK\INSTALL\make.inc.LINUX</span></tt> to <tt class="docutils literal"><span class="pre">LAPACK\make.inc</span></tt>,
+where LAPACK stands for your LAPACK root directory.</li>
+<li>Append <tt class="docutils literal"><span class="pre">.PHONY:</span> <span class="pre">install</span> <span class="pre">testing</span> <span class="pre">timing</span></tt> as the last line to
+<tt class="docutils literal"><span class="pre">LAPACK\Makefile</span></tt></li>
+<li>Execute <tt class="docutils literal"><span class="pre">make</span> <span class="pre">install</span> <span class="pre">lib</span></tt> and wait a few minutes for the compilation to
+finish (the timing error in the beginning is without meaning).</li>
+</ol>
+</div></blockquote>
+<p>Now copy the file <tt class="docutils literal"><span class="pre">lapack_LINUX.a</span></tt> from <tt class="docutils literal"><span class="pre">LAPACK</span></tt> to your equivalent of the
+folder <tt class="docutils literal"><span class="pre">BLASLAPACKLIBS</span></tt> created above.</p>
+</div>
+<div class="section" id="obtaining-an-atlas-optimized-lapack">
+<h3><a class="toc-backref" href="#id12">Obtaining an ATLAS-optimized LAPACK</a><a class="headerlink" href="#obtaining-an-atlas-optimized-lapack" title="Permalink to this headline">¶</a></h3>
+<p>In Cygwin, <tt class="docutils literal"><span class="pre">cd</span></tt> to your <tt class="docutils literal"><span class="pre">BLASLAPACKLIBS</span></tt> folder and execute the following:</p>
+<div class="highlight-python"><pre>ar x liblapack.a
+ar r lapack_LINUX.a *.o
+rm *.o
+mv lapack_LINUX.a liblapack.a</pre>
+</div>
+<p>You now have the files <tt class="docutils literal"><span class="pre">libcblas.a</span></tt>, <tt class="docutils literal"><span class="pre">libf77blas.a</span></tt>, <tt class="docutils literal"><span class="pre">liblapack.a</span></tt> and
+<tt class="docutils literal"><span class="pre">libatlas.a</span></tt> in your <tt class="docutils literal"><span class="pre">BLASLAPACKLIBS</span></tt> folder, holding optimized static
+CBLAS, BLAS, (complete) LAPACK libraries and their low level ATLAS support
+library. If you want to use MSVC to build NumPy/SciPy, you have to rename the
+<tt class="docutils literal"><span class="pre">lib*.a</span></tt> files to <tt class="docutils literal"><span class="pre">*.lib</span></tt>, i.e. <tt class="docutils literal"><span class="pre">libcblas.a</span></tt> to <tt class="docutils literal"><span class="pre">cblas.lib</span></tt>, for
+instance.</p>
+<p>In case you want to create a DLL with the full BLAS, CBLAS and LAPACK interface
+(currently not relevant for SciPy), this could be easily done as follows:</p>
+<div class="highlight-python"><pre>gcc -mno-cygwin -shared -o blaslapack.dll -Wl,--out-implib=blaslapack.lib \
+-Wl,--export-all-symbols -Wl,--allow-multiple-definition \
+-Wl,--enable-auto-import -Wl,--whole-archive liblapack.a libf77blas.a \
+libcblas.a -Wl,--no-whole-archive libatlas.a -lg2c</pre>
+</div>
+<p>This generates a DLL linked to <tt class="docutils literal"><span class="pre">msvcrt.dll</span></tt>. If you want to generate a DLL
+(only) linked to <tt class="docutils literal"><span class="pre">msvcr71</span></tt>, using the command line option <tt class="docutils literal"><span class="pre">-lmsvcr71</span></tt> is
+not enough (due to a bug in MinGW?). Instead, you need to replace <tt class="docutils literal"><span class="pre">-lmsvcrt</span></tt>
+in your gcc spec file (in <tt class="docutils literal"><span class="pre">Cygwin\lib\gcc\i686-pc-cygwin\3.4.X</span></tt> or
+<tt class="docutils literal"><span class="pre">MinGW\lib\gcc\mingw32\3.4.X</span></tt>) with <tt class="docutils literal"><span class="pre">-lmsvcr71</span></tt> before executing the above
+command. If you want to check the DLL dependencies, you can use <tt class="docutils literal"><span class="pre">depends</span></tt>.</p>
+<p>The generated <tt class="docutils literal"><span class="pre">blaslapack.lib</span></tt> is the import library for linking the DLL.</p>
+</div>
+<div class="section" id="building-numpy-with-atlas-lapack">
+<h3><a class="toc-backref" href="#id13">Building NumPy with ATLAS/LAPACK</a><a class="headerlink" href="#building-numpy-with-atlas-lapack" title="Permalink to this headline">¶</a></h3>
+<p>In order to configure NumPy to use your optimized BLAS/LAPACK libraries you
+need to copy the <tt class="docutils literal"><span class="pre">site.cfg.example</span></tt> file in the root directory of NumPy to
+<tt class="docutils literal"><span class="pre">site.cfg</span></tt>. If <tt class="docutils literal"><span class="pre">site.cfg.example</span></tt> does not exist, then just create a new
+<tt class="docutils literal"><span class="pre">site.cfg</span></tt>.  Change its contents as follows:</p>
+<p>If you&#8217;ve built ATLAS and LAPACK as described above:</p>
+<dl class="docutils">
+<dt>::</dt>
+<dd>[atlas]
+library_dirs = c:pathtoBLASLAPACKLIBS
+atlas_libs = lapack, f77blas, cblas, atlas</dd>
+</dl>
+<p>If you want to use some other static BLAS and LAPACK libraries instead, use:</p>
+<dl class="docutils">
+<dt>::</dt>
+<dd><p class="first">[blas]
+library_dirs = c:pathtoCBLAS
+blas_libs = cblas</p>
+<p class="last">[lapack]
+library_dirs = c:pathtoBLASLibs
+lapack_libs = lapack</p>
+</dd>
+</dl>
+<p>where <tt class="docutils literal"><span class="pre">cblas</span></tt> and <tt class="docutils literal"><span class="pre">lapack</span></tt> should be replaced with the names of your
+libraries (without <tt class="docutils literal"><span class="pre">lib*.a</span></tt> or <tt class="docutils literal"><span class="pre">.lib</span></tt> extensions).</p>
+<p>Now change to the NumPy root directory in a Windows command prompt window (or
+the Cygwin bash shell). If you want to compile with MinGW or Cygwin-MinGW,
+execute</p>
+<dl class="docutils">
+<dt>::</dt>
+<dd>c:pathtopython.exe setup.py config &#8211;compiler=mingw32 build
+&#8211;compiler=mingw32 bdist_wininst</dd>
+</dl>
+<p>and if you want to compile with Visual Studio 2003, execute</p>
+<dl class="docutils">
+<dt>::</dt>
+<dd>c:pathtopython.exe setup.py config &#8211;compiler=msvc build &#8211;compiler=msvc
+bdist_wininst</dd>
+</dl>
+<p>This leaves you with a nice binary installer in the dist subfolder, which you
+can use to install NumPy and later uninstall through &#8220;Add and Remove Programs&#8221;
+in the Windows Control Panel.</p>
+<p>If you&#8217;d rather just go ahead and actually install it somewhere, use:</p>
+<dl class="docutils">
+<dt>::</dt>
+<dd>c:pathtopython.exe setup.py config &#8211;compiler=[compiler] build
+&#8211;compiler=[compiler] install &#8211;prefix=c:wheretoinstall</dd>
+</dl>
+<p>If you want to compile and install NumPy for use with the Python from Cygwin
+(usually you don&#8217;t), execute</p>
+<dl class="docutils">
+<dt>::</dt>
+<dd>python setup.py config &#8211;compiler=mingw32 build &#8211;compiler=mingw32 install</dd>
+</dl>
+<p>If you later wish to rebuild NumPy, say after updating the code from SVN,
+it may be necessary to delete the <tt class="docutils literal"><span class="pre">build</span></tt> directory first before
+re-running the above commands.</p>
+</div>
+</div>
+<div class="section" id="miscellaneous-notes">
+<h2><a class="toc-backref" href="#id14">Miscellaneous Notes</a><a class="headerlink" href="#miscellaneous-notes" title="Permalink to this headline">¶</a></h2>
+<p>Miscellaneous Notes:</p>
+<p>If you&#8217;re getting a <tt class="docutils literal"><span class="pre">gcc.lib</span> <span class="pre">not</span> <span class="pre">found</span></tt> error, it is probably because you&#8217;re
+building with <tt class="docutils literal"><span class="pre">--compiler=msvc</span></tt>, but you also have MinGW installed. In that
+case Numpy may compile some Fortran files using MinGW, and then at link time
+try to link with <tt class="docutils literal"><span class="pre">gcc.lib</span></tt> which doesn&#8217;t exist in the MinGW distribution. You
+can fix this by copying some MinGW <tt class="docutils literal"><span class="pre">.a</span></tt> file to <tt class="docutils literal"><span class="pre">.lib</span></tt> files:</p>
+<dl class="docutils">
+<dt>::</dt>
+<dd>cd c:MinGWlibgccmingw32{compiler.version}copy libgcc.a   gcc.lib
+copy c:MinGWliblibg2c.a   .g2c.lib</dd>
+</dl>
+<p>If you get errors like this:</p>
+<dl class="docutils">
+<dt>::</dt>
+<dd>lapack.lib(zunmbr.o) : error LNK2001: unresolved external symbol _s_cat
+lapack.lib(zunmqr.o) : error LNK2001: unresolved external symbol _s_cat
+lapack.lib(dormql.o) : error LNK2001: unresolved external symbol _s_cat
+lapack.lib(zunmql.o) : error LNK2001: unresolved external symbol _s_cat
+lapack.lib(dormbr.o) : error LNK2001: unresolved external symbol _s_cat
+lapack.lib(dormqr.o) : error LNK2001: unresolved external symbol _s_cat
+lapack.lib(zhseqr.o) : error LNK2019: unresolved external symbol _s_cat referenced in function _zhseqr_
+lapack.lib(zunmlq.o) : error LNK2001: unresolved external symbol _s_cat
+lapack.lib(dhseqr.o) : error LNK2019: unresolved external symbol _s_cat referenced in function _dhseqr_
+lapack.lib(dormtr.o) : error LNK2001: unresolved external symbol _s_cat
+lapack.lib(zunmtr.o) : error LNK2001: unresolved external symbol _s_cat
+lapack.lib(dormlq.o) : error LNK2001: unresolved external symbol _s_cat
+lapack.lib(dlamch.o) : error LNK2019: unresolved external symbol _e_wsfe referenced in function _dlamc2_
+lapack.lib(xerbla.o) : error LNK2001: unresolved external symbol _e_wsfe
+lapack.lib(dlamch.o) : error LNK2019: unresolved external symbol _do_fio referenced in function _dlamc2_
+lapack.lib(xerbla.o) : error LNK2001: unresolved external symbol _do_fio
+lapack.lib(dlamch.o) : error LNK2019: unresolved external symbol _s_wsfe referenced in function _dlamc2_
+lapack.lib(xerbla.o) : error LNK2001: unresolved external symbol _s_wsfe
+lapack.lib(xerbla.o) : error LNK2019: unresolved external symbol _s_stop referenced in function _xerbla_
+lapack.lib(ilaenv.o) : error LNK2019: unresolved external symbol _s_cmp referenced in function _ilaenv_
+lapack.lib(ilaenv.o) : error LNK2019: unresolved external symbol _s_copy referenced in function _ilaenv_
+lapack.lib(zlahqr.o) : error LNK2019: unresolved external symbol _z_abs referenced in function _zlahqr_
+lapack.lib(zlanhe.o) : error LNK2019: unresolved external symbol _z_abs referenced in function _zlanhe_
+lapack.lib(zgebal.o) : error LNK2019: unresolved external symbol _z_abs referenced in function _zgebal_
+lapack.lib(zlange.o) : error LNK2019: unresolved external symbol _z_abs referenced in function _zlange_
+lapack.lib(zlanhs.o) : error LNK2019: unresolved external symbol _z_abs referenced in function _zlanhs_
+lapack.lib(zhseqr.o) : error LNK2019: unresolved external symbol __alloca referenced in function _zhseqr_
+lapack.lib(zlarfx.o) : error LNK2019: unresolved external symbol __alloca referenced in function _zlarfx_
+lapack.lib(zlahqr.o) : error LNK2019: unresolved external symbol _z_sqrt referenced in function _zlahqr_
+buildlib.win32-2.4numpylinalglapack_lite.pyd : fatal error LNK1120: 10 unresolved externals</dd>
+</dl>
+<p>you need to add the g2c and gcc libraries to the ATLAS and LAPACK
+libraries you have already. With Cygwin, you can find these in
+<tt class="docutils literal"><span class="pre">/lib/gcc/i686-pc-mingw32/3.4.4</span></tt>. Copy them to <tt class="docutils literal"><span class="pre">g2c.lib</span></tt> and <tt class="docutils literal"><span class="pre">gcc.lib</span></tt>,
+respectively, and modify <tt class="docutils literal"><span class="pre">site.cfg</span></tt> accordingly.</p>
+</div>
+<div class="section" id="building-scipy">
+<h2><a class="toc-backref" href="#id15">Building SciPy</a><a class="headerlink" href="#building-scipy" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li><a href="../content.html">SciPy</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2009 SciPy developers.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+    </div>
+  </body>
+</html>
