@@ -97,9 +97,7 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#python-version-support">Python version support</a><ul>
-<li><a class="reference internal" href="#does-numpy-currently-work-with-python-3-x-what-about-scipy">Does NumPy currently work with Python 3.x? What about SciPy?</a></li>
-<li><a class="reference internal" href="#when-will-numpy-support-python-3-x">When will NumPy support Python 3.x?</a></li>
-<li><a class="reference internal" href="#when-will-scipy-support-python-3-x">When will SciPy support Python 3.x?</a></li>
+<li><a class="reference internal" href="#do-numpy-and-scipy-support-python-3-x">Do NumPy and SciPy support Python 3.x?</a></li>
 <li><a class="reference internal" href="#does-numpy-scipy-work-with-jython">Does NumPy/SciPy work with Jython?</a></li>
 <li><a class="reference internal" href="#does-numpy-scipy-work-with-ironpython-net">Does NumPy/SciPy work with IronPython (.NET)?</a></li>
 </ul>
@@ -179,28 +177,26 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#python-version-support" id="id21">Python version support</a><ul>
-<li><a class="reference internal" href="#does-numpy-currently-work-with-python-3-x-what-about-scipy" id="id22">Does NumPy currently work with Python 3.x? What about SciPy?</a></li>
-<li><a class="reference internal" href="#when-will-numpy-support-python-3-x" id="id23">When will NumPy support Python 3.x?</a></li>
-<li><a class="reference internal" href="#when-will-scipy-support-python-3-x" id="id24">When will SciPy support Python 3.x?</a></li>
-<li><a class="reference internal" href="#does-numpy-scipy-work-with-jython" id="id25">Does NumPy/SciPy work with Jython?</a></li>
-<li><a class="reference internal" href="#does-numpy-scipy-work-with-ironpython-net" id="id26">Does NumPy/SciPy work with IronPython (.NET)?</a></li>
+<li><a class="reference internal" href="#do-numpy-and-scipy-support-python-3-x" id="id22">Do NumPy and SciPy support Python 3.x?</a></li>
+<li><a class="reference internal" href="#does-numpy-scipy-work-with-jython" id="id23">Does NumPy/SciPy work with Jython?</a></li>
+<li><a class="reference internal" href="#does-numpy-scipy-work-with-ironpython-net" id="id24">Does NumPy/SciPy work with IronPython (.NET)?</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#basic-numpy-scipy-usage" id="id27">Basic NumPy/SciPy usage</a><ul>
-<li><a class="reference internal" href="#what-is-the-preferred-way-to-check-for-an-empty-zero-element-array" id="id28">What is the preferred way to check for an empty (zero element) array?</a></li>
-<li><a class="reference internal" href="#i-want-to-load-data-from-a-text-file-how-do-i-make-this-code-more-efficient" id="id29">I want to load data from a text file. How do I make this code more efficient?</a></li>
-<li><a class="reference internal" href="#what-is-the-difference-between-matrices-and-arrays" id="id30">What is the difference between matrices and arrays?</a></li>
-<li><a class="reference internal" href="#why-not-just-have-a-separate-operator-for-matrix-multiplication" id="id31">Why not just have a separate operator for matrix multiplication?</a></li>
-<li><a class="reference internal" href="#how-do-i-find-the-indices-of-an-array-where-some-condition-is-true" id="id32">How do I find the indices of an array where some condition is true?</a></li>
-<li><a class="reference internal" href="#how-do-i-count-the-number-of-times-each-value-appears-in-an-array-of-integers" id="id33">How do I count the number of times each value appears in an array of integers?</a></li>
+<li><a class="reference internal" href="#basic-numpy-scipy-usage" id="id25">Basic NumPy/SciPy usage</a><ul>
+<li><a class="reference internal" href="#what-is-the-preferred-way-to-check-for-an-empty-zero-element-array" id="id26">What is the preferred way to check for an empty (zero element) array?</a></li>
+<li><a class="reference internal" href="#i-want-to-load-data-from-a-text-file-how-do-i-make-this-code-more-efficient" id="id27">I want to load data from a text file. How do I make this code more efficient?</a></li>
+<li><a class="reference internal" href="#what-is-the-difference-between-matrices-and-arrays" id="id28">What is the difference between matrices and arrays?</a></li>
+<li><a class="reference internal" href="#why-not-just-have-a-separate-operator-for-matrix-multiplication" id="id29">Why not just have a separate operator for matrix multiplication?</a></li>
+<li><a class="reference internal" href="#how-do-i-find-the-indices-of-an-array-where-some-condition-is-true" id="id30">How do I find the indices of an array where some condition is true?</a></li>
+<li><a class="reference internal" href="#how-do-i-count-the-number-of-times-each-value-appears-in-an-array-of-integers" id="id31">How do I count the number of times each value appears in an array of integers?</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#advanced-numpy-usage" id="id34">Advanced NumPy usage</a><ul>
-<li><a class="reference internal" href="#does-numpy-support-nan" id="id35">Does NumPy support <tt class="xref py py-const docutils literal"><span class="pre">nan</span></tt>?</a></li>
-<li><a class="reference internal" href="#why-doesn-t-a-0-1-1-2-1-do-what-i-think-it-should" id="id36">Why doesn&#8217;t A[[0, 1, 1, 2]] += 1 do what I think it should?</a></li>
+<li><a class="reference internal" href="#advanced-numpy-usage" id="id32">Advanced NumPy usage</a><ul>
+<li><a class="reference internal" href="#does-numpy-support-nan" id="id33">Does NumPy support <tt class="xref py py-const docutils literal"><span class="pre">nan</span></tt>?</a></li>
+<li><a class="reference internal" href="#why-doesn-t-a-0-1-1-2-1-do-what-i-think-it-should" id="id34">Why doesn&#8217;t A[[0, 1, 1, 2]] += 1 do what I think it should?</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#where-to-get-help" id="id37">Where to get help</a></li>
+<li><a class="reference internal" href="#where-to-get-help" id="id35">Where to get help</a></li>
 </ul>
 </div>
 <div class="section" id="general-questions-about-numpy">
@@ -386,33 +382,21 @@ matrix argument for solving <a class="reference external" href="http://en.wikipe
 </div>
 <div class="section" id="python-version-support">
 <h2><a class="toc-backref" href="#id21">Python version support</a><a class="headerlink" href="#python-version-support" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="does-numpy-currently-work-with-python-3-x-what-about-scipy">
-<h3><a class="toc-backref" href="#id22">Does NumPy currently work with Python 3.x? What about SciPy?</a><a class="headerlink" href="#does-numpy-currently-work-with-python-3-x-what-about-scipy" title="Permalink to this headline">¶</a></h3>
-<p>Currently, NumPy and SciPy support only Python versions 2.4 to 2.6.x. Neither
-NumPy nor SciPy are currently compatible with Python 3.</p>
-</div>
-<div class="section" id="when-will-numpy-support-python-3-x">
-<h3><a class="toc-backref" href="#id23">When will NumPy support Python 3.x?</a><a class="headerlink" href="#when-will-numpy-support-python-3-x" title="Permalink to this headline">¶</a></h3>
-<p>This is a difficult question to answer, and depends largely on developer
-resources. NumPy contains a large amount of C code, which must be manually
-converted to respect the new Python API. It is hard to predict how long
-this will take, but at present we expect a NumPy release for Python 3.x
-no earlier than mid-2010.</p>
-</div>
-<div class="section" id="when-will-scipy-support-python-3-x">
-<h3><a class="toc-backref" href="#id24">When will SciPy support Python 3.x?</a><a class="headerlink" href="#when-will-scipy-support-python-3-x" title="Permalink to this headline">¶</a></h3>
-<p>SciPy depends heavily on NumPy, so it will not be possible to port
-SciPy until NumPy is done. Since we do not have a firm date for
-a 3.x-compatible NumPy, a prediction for SciPy is pointless.</p>
+<div class="section" id="do-numpy-and-scipy-support-python-3-x">
+<h3><a class="toc-backref" href="#id22">Do NumPy and SciPy support Python 3.x?</a><a class="headerlink" href="#do-numpy-and-scipy-support-python-3-x" title="Permalink to this headline">¶</a></h3>
+<p>NumPy and SciPy support the Python 2.x series, beginning with version
+2.4, as well as Python 3.1 and newer. The first release of NumPy to
+support Python 3 was NumPy 1.5.0. Python 3 support in SciPy starts
+with version 0.9.0.</p>
 </div>
 <div class="section" id="does-numpy-scipy-work-with-jython">
-<h3><a class="toc-backref" href="#id25">Does NumPy/SciPy work with Jython?</a><a class="headerlink" href="#does-numpy-scipy-work-with-jython" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id23">Does NumPy/SciPy work with Jython?</a><a class="headerlink" href="#does-numpy-scipy-work-with-jython" title="Permalink to this headline">¶</a></h3>
 <p>No. Simply put, Jython runs on top of the Java Virtual Machine and has no
 way to interface with extensions written in C for the standard Python
 (CPython) interpreter.</p>
 </div>
 <div class="section" id="does-numpy-scipy-work-with-ironpython-net">
-<h3><a class="toc-backref" href="#id26">Does NumPy/SciPy work with IronPython (.NET)?</a><a class="headerlink" href="#does-numpy-scipy-work-with-ironpython-net" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id24">Does NumPy/SciPy work with IronPython (.NET)?</a><a class="headerlink" href="#does-numpy-scipy-work-with-ironpython-net" title="Permalink to this headline">¶</a></h3>
 <p>Some users have reported success in using NumPy with <a class="reference external" href="http://code.google.com/p/ironclad/">Ironclad</a> on 32-bit Windows. The current status
 of Ironclad support for SciPy is unknown, but there are several
 complicating factors (namely the Fortran compiler situation on
@@ -420,9 +404,9 @@ Windows) that make it less feasible than NumPy.</p>
 </div>
 </div>
 <div class="section" id="basic-numpy-scipy-usage">
-<h2><a class="toc-backref" href="#id27">Basic NumPy/SciPy usage</a><a class="headerlink" href="#basic-numpy-scipy-usage" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id25">Basic NumPy/SciPy usage</a><a class="headerlink" href="#basic-numpy-scipy-usage" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="what-is-the-preferred-way-to-check-for-an-empty-zero-element-array">
-<h3><a class="toc-backref" href="#id28">What is the preferred way to check for an empty (zero element) array?</a><a class="headerlink" href="#what-is-the-preferred-way-to-check-for-an-empty-zero-element-array" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id26">What is the preferred way to check for an empty (zero element) array?</a><a class="headerlink" href="#what-is-the-preferred-way-to-check-for-an-empty-zero-element-array" title="Permalink to this headline">¶</a></h3>
 <p>If you are certain a variable is an array, then use the size attribute.
 If the variable may be a list or other sequence type, use <a class="reference external" href="http://docs.python.org/library/functions.html#len" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">len()</span></tt></a>.
 The size attribute is preferable to len because:</p>
@@ -438,7 +422,7 @@ The size attribute is preferable to len because:</p>
 </div>
 </div>
 <div class="section" id="i-want-to-load-data-from-a-text-file-how-do-i-make-this-code-more-efficient">
-<h3><a class="toc-backref" href="#id29">I want to load data from a text file. How do I make this code more efficient?</a><a class="headerlink" href="#i-want-to-load-data-from-a-text-file-how-do-i-make-this-code-more-efficient" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id27">I want to load data from a text file. How do I make this code more efficient?</a><a class="headerlink" href="#i-want-to-load-data-from-a-text-file-how-do-i-make-this-code-more-efficient" title="Permalink to this headline">¶</a></h3>
 <p>Use <tt class="xref py py-func docutils literal"><span class="pre">numpy.loadtxt()</span></tt>. Even if your text file has header and footer
 lines or comments, loadtxt can almost certainly read it; it is convenient and
 efficient.</p>
@@ -461,7 +445,7 @@ built into NumPy as of 1.0.5.</li>
 </ul>
 </div>
 <div class="section" id="what-is-the-difference-between-matrices-and-arrays">
-<h3><a class="toc-backref" href="#id30">What is the difference between matrices and arrays?</a><a class="headerlink" href="#what-is-the-difference-between-matrices-and-arrays" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id28">What is the difference between matrices and arrays?</a><a class="headerlink" href="#what-is-the-difference-between-matrices-and-arrays" title="Permalink to this headline">¶</a></h3>
 <p>NumPy&#8217;s basic data type is the multidimensional array. These can be
 one-dimensional (that is, one index, like a list or a vector),
 two-dimensional (two indices, like an image), three-dimensional, or more
@@ -493,7 +477,7 @@ you may find your matrices accidentally get converted into arrays. Just use
 <tt class="xref py py-func docutils literal"><span class="pre">asmatrix()</span></tt> on the output of these operations, and consider filing a bug.</p>
 </div>
 <div class="section" id="why-not-just-have-a-separate-operator-for-matrix-multiplication">
-<h3><a class="toc-backref" href="#id31">Why not just have a separate operator for matrix multiplication?</a><a class="headerlink" href="#why-not-just-have-a-separate-operator-for-matrix-multiplication" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id29">Why not just have a separate operator for matrix multiplication?</a><a class="headerlink" href="#why-not-just-have-a-separate-operator-for-matrix-multiplication" title="Permalink to this headline">¶</a></h3>
 <p>Unfortunately Python does not allow extension modules to define new operators,
 and there is no operator we can overload for this purpose. This is however the
 subject of <a class="reference external" href="http://www.python.org/dev/peps/pep-0225/">PEP 225</a>, which
@@ -502,7 +486,7 @@ of a discussion of PEP 225&#8217;s relative merits at SciPy 2008 can be found
 in this <a class="reference external" href="http://mail.python.org/pipermail/python-dev/2008-November/083493.html">archived post to the Python-dev mailing list</a>.</p>
 </div>
 <div class="section" id="how-do-i-find-the-indices-of-an-array-where-some-condition-is-true">
-<h3><a class="toc-backref" href="#id32">How do I find the indices of an array where some condition is true?</a><a class="headerlink" href="#how-do-i-find-the-indices-of-an-array-where-some-condition-is-true" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id30">How do I find the indices of an array where some condition is true?</a><a class="headerlink" href="#how-do-i-find-the-indices-of-an-array-where-some-condition-is-true" title="Permalink to this headline">¶</a></h3>
 <p>The prefered idiom for doing this is to use the function <tt class="xref py py-func docutils literal"><span class="pre">numpy.nonzero()</span></tt>
 , or the <tt class="xref py py-meth docutils literal"><span class="pre">nonzero()</span></tt> method of an array. Given an array <tt class="docutils literal"><span class="pre">a</span></tt>, the
 condition <tt class="docutils literal"><span class="pre">a</span> <span class="pre">&gt;</span> <span class="pre">3</span></tt> returns a boolean array and since <tt class="docutils literal"><span class="pre">False</span></tt> is
@@ -525,7 +509,7 @@ of <tt class="docutils literal"><span class="pre">a</span></tt> where the condit
 </div>
 </div>
 <div class="section" id="how-do-i-count-the-number-of-times-each-value-appears-in-an-array-of-integers">
-<h3><a class="toc-backref" href="#id33">How do I count the number of times each value appears in an array of integers?</a><a class="headerlink" href="#how-do-i-count-the-number-of-times-each-value-appears-in-an-array-of-integers" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id31">How do I count the number of times each value appears in an array of integers?</a><a class="headerlink" href="#how-do-i-count-the-number-of-times-each-value-appears-in-an-array-of-integers" title="Permalink to this headline">¶</a></h3>
 <p>Use <tt class="xref py py-func docutils literal"><span class="pre">numpy.bincount()</span></tt>. The resulting array is</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">arr</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">numpy</span><span class="o">.</span><span class="n">bincount</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
@@ -536,9 +520,9 @@ Negative integers are not supported.</p>
 </div>
 </div>
 <div class="section" id="advanced-numpy-usage">
-<h2><a class="toc-backref" href="#id34">Advanced NumPy usage</a><a class="headerlink" href="#advanced-numpy-usage" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id32">Advanced NumPy usage</a><a class="headerlink" href="#advanced-numpy-usage" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="does-numpy-support-nan">
-<h3><a class="toc-backref" href="#id35">Does NumPy support <tt class="xref py py-const docutils literal"><span class="pre">nan</span></tt>?</a><a class="headerlink" href="#does-numpy-support-nan" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id33">Does NumPy support <tt class="xref py py-const docutils literal"><span class="pre">nan</span></tt>?</a><a class="headerlink" href="#does-numpy-support-nan" title="Permalink to this headline">¶</a></h3>
 <p><tt class="xref py py-const docutils literal"><span class="pre">nan</span></tt>, short for &#8220;not a number&#8221;, is a special floating point value
 defined by the IEEE-754 specification along with <tt class="xref py py-const docutils literal"><span class="pre">inf</span></tt> (infinity)
 and other  values and behaviours. In theory, IEEE <tt class="xref py py-const docutils literal"><span class="pre">nan</span></tt> was
@@ -570,7 +554,7 @@ many floating point units. See also the <a class="reference external" href="http
 masked arrays</a>.</p>
 </div>
 <div class="section" id="why-doesn-t-a-0-1-1-2-1-do-what-i-think-it-should">
-<h3><a class="toc-backref" href="#id36">Why doesn&#8217;t A[[0, 1, 1, 2]] += 1 do what I think it should?</a><a class="headerlink" href="#why-doesn-t-a-0-1-1-2-1-do-what-i-think-it-should" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id34">Why doesn&#8217;t A[[0, 1, 1, 2]] += 1 do what I think it should?</a><a class="headerlink" href="#why-doesn-t-a-0-1-1-2-1-do-what-i-think-it-should" title="Permalink to this headline">¶</a></h3>
 <p>This comes up from time to time on the <a class="reference internal" href="mailing-lists.html"><em>mailing list</em></a>. See <a class="reference external" href="http://projects.scipy.org/pipermail/numpy-discussion/2006-March/006877.html">here</a> for one extensive discussion.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">A</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]]</span> <span class="o">+=</span> <span class="mi">1</span>
@@ -605,7 +589,7 @@ array is written to twice.</p>
 </div>
 </div>
 <div class="section" id="where-to-get-help">
-<h2><a class="toc-backref" href="#id37">Where to get help</a><a class="headerlink" href="#where-to-get-help" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id35">Where to get help</a><a class="headerlink" href="#where-to-get-help" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
